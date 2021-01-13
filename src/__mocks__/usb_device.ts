@@ -1,0 +1,29 @@
+import { Device } from 'node-hid';
+import IUsbDevice from '../models/i_usb_device';
+
+export default class MockUsbDevice implements IUsbDevice {
+  bytesWritten = false;
+  vendorId = 123;
+  productId = 456;
+
+  constructor(private rawDevice: Device) {
+    if (this.rawDevice) {
+      this.vendorId = rawDevice.vendorId;
+      this.productId = rawDevice.productId;
+    }
+  }
+
+  readSync(): number[] {
+    return [0, 0, 0, 0, 0, 0];
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  write(_bytes: number[]): void {
+    this.bytesWritten = true;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  realDevice(): any {
+    return this.rawDevice;
+  }
+}
