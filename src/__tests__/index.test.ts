@@ -1,15 +1,15 @@
-import IUsbDevice from '../models/i_usb_device';
-import IUsbGateway from '../gateways/i_usb_gateway';
+import UsbDevice from '../models/usb_device';
+import UsbGateway from '../gateways/usb_gateway';
 import FoundHeadphone from '../models/found_headphone';
 import SimpleHeadphone from '../models/simple_headphone';
 
-class MockedGateway implements IUsbGateway {
-  getUsbDevices(): IUsbDevice[] {
+class MockedGateway implements UsbGateway {
+  getUsbDevices(): UsbDevice[] {
     return [];
   }
 }
 class MockedFindUseCase {
-  execute(): IUsbDevice[] {
+  execute(): UsbDevice[] {
     return [];
   }
 }

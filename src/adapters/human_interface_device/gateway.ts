@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Device } from 'node-hid';
-import IUsbGateway from '../../gateways/i_usb_gateway';
-import IUsbDevice from '../../models/i_usb_device';
+import UsbGateway from '../../gateways/usb_gateway';
+import UsbDevice from '../../models/usb_device';
 
-export default class HidUsbGateway implements IUsbGateway {
+export default class HidUsbGateway implements UsbGateway {
   private usbProvider;
   private usbModel;
 
@@ -15,7 +15,7 @@ export default class HidUsbGateway implements IUsbGateway {
     this.usbProvider.setDriverType('libusb');
   }
 
-  getUsbDevices(): IUsbDevice[] {
+  getUsbDevices(): UsbDevice[] {
     return this.usbProvider
       .devices()
       .filter((device: Device) => device.usage !== 1)

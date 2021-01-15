@@ -1,7 +1,7 @@
 import { Device } from 'node-hid';
-import IUsbDevice from '../models/i_usb_device';
+import UsbDevice from '../models/usb_device';
 
-export default class MockUsbDevice implements IUsbDevice {
+export default class MockUsbDevice implements UsbDevice {
   bytesWritten = false;
   vendorId = 123;
   productId = 456;

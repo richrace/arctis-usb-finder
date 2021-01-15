@@ -1,7 +1,7 @@
 import { HID, Device } from 'node-hid';
-import IUsbDevice from '../../models/i_usb_device';
+import UsbDevice from '../../models/usb_device';
 
-export default class HidUsbDevice implements IUsbDevice {
+export default class HidUsbDevice implements UsbDevice {
   private rawDevice: Device;
   private hidDevice: HID | undefined;
   vendorId = 999999;

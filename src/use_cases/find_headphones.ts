@@ -1,10 +1,10 @@
-import IUsbGateway from '../gateways/i_usb_gateway';
+import UsbGateway from '../gateways/usb_gateway';
 import HeadphoneList from '../headphone_list';
 import FoundHeadphone from '../models/found_headphone';
 import KnownHeadphone from '../models/known_headphone';
 
 export default class FindHeadphones {
-  constructor(private gateway: IUsbGateway) {}
+  constructor(private gateway: UsbGateway) {}
 
   execute(): FoundHeadphone[] {
     const devices = this.gateway.getUsbDevices();

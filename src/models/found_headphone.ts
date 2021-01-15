@@ -1,8 +1,8 @@
-import IUsbDevice from './i_usb_device';
+import UsbDevice from './usb_device';
 import KnownHeadphone from './known_headphone';
 
 export default interface FoundHeadphone {
-  device: IUsbDevice;
+  device: UsbDevice;
   knownHeadphone: KnownHeadphone;
   // eslint-disable-next-line semi
 }

@@ -1,4 +1,4 @@
-export default interface IUsbDevice {
+export default interface UsbDevice {
   productId: number;
   vendorId: number;
   fetchInfo(bytes: number[]): number[];
