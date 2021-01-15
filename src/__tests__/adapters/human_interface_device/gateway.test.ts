@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-mocks-import */
 import { Device } from 'node-hid';
-import UsbGateway from '../../../adapters/hid/hid_usb_gateway';
+import HidUsbGateway from '../../../adapters/human_interface_device/gateway';
 import MockUsbDevice from '../../../__mocks__/usb_device';
 import MockDevice from '../../../__mocks__/device';
 
@@ -48,10 +48,10 @@ class MockHID {
 
 describe('UsbGateway', () => {
   const mockedHID = new MockHID();
-  let gateway: UsbGateway;
+  let gateway: HidUsbGateway;
 
   beforeEach(() => {
-    gateway = new UsbGateway(mockedHID, MockUsbDevice);
+    gateway = new HidUsbGateway(mockedHID, MockUsbDevice);
   });
 
   it('sets the driver type on the HID interface', () => {

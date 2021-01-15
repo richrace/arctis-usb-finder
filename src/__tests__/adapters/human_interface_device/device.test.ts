@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-mocks-import */
 import { Device } from 'node-hid';
-import HidUsbDevice from '../../../adapters/hid/hid_usb_device';
+import HidUsbDevice from '../../../adapters/human_interface_device/device';
 import MockDevice from '../../../__mocks__/device';
 
 const deviceFactory = (path?: string): MockDevice => {
