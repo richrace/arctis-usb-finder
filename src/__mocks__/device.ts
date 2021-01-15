@@ -1,6 +1,25 @@
 import { Device } from 'node-hid';
 
-export default class MockDevice implements Device {
+export const deviceFactory = (
+  path?: string,
+  vendorId = 10168,
+  productId = 493
+): MockDevice => {
+  return new MockDevice(
+    vendorId,
+    productId,
+    path,
+    '20002E8C',
+    'ThingM',
+    'blink(1) mk2',
+    2,
+    -1,
+    65280,
+    1
+  );
+};
+
+export class MockDevice implements Device {
   vendorId: number;
   productId: number;
   path?: string;

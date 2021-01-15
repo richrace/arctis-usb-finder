@@ -1,47 +1,27 @@
 /* eslint-disable jest/no-mocks-import */
 import IUsbGateway from '../../gateways/i_usb_gateway';
 import IUsbDevice from '../../models/i_usb_device';
+import HeadphoneList from '../../headphone_list';
 import FindHeadphones from '../../use_cases/find_headphones';
-import MockDevice from '../../__mocks__/device';
+import { deviceFactory } from '../../__mocks__/device';
 import MockUsbDevice from '../../__mocks__/usb_device';
 
-const matchingDevice = new MockDevice(
-  4152,
-  0x12d7,
+const matchingDevice = deviceFactory(
   'IOService:/AppleACPIPl...HIDDevice@14210000,0',
-  '20002E8C',
-  'ThingM',
-  'blink(1) mk2',
-  2,
-  -1,
-  65280,
-  0
+  4152,
+  0x12ad
 );
 
-const notMatchingDevice = new MockDevice(
+const notMatchingDevice = deviceFactory(
+  'IOService:/AppleACPIPl...HIDDevice@14210000,0',
   10168,
-  493,
-  'IOService:/AppleACPIPl...HIDDevice@14210000,0',
-  '20002E8C',
-  'ThingM',
-  'blink(1) mk2',
-  2,
-  -1,
-  65280,
-  0
+  493
 );
 
-const notSupportedProductIdDevice = new MockDevice(
-  4152,
-  0x12d2,
+const notSupportedProductIdDevice = deviceFactory(
   'IOService:/AppleACPIPl...HIDDevice@14210000,0',
-  '20002E8C',
-  'ThingM',
-  'blink(1) mk2',
-  2,
-  -1,
-  65280,
-  0
+  4152,
+  0x12d2
 );
 
 const matchingUsbDevice = new MockUsbDevice(matchingDevice);
@@ -65,6 +45,11 @@ describe('FindHeadphones', () => {
     const gateway = new MockedGateway();
     const useCase = new FindHeadphones(gateway);
 
-    expect(useCase.execute()).toEqual([matchingUsbDevice]);
+    expect(useCase.execute()).toEqual([
+      {
+        device: matchingUsbDevice,
+        knownHeadphone: HeadphoneList[0],
+      },
+    ]);
   });
 });

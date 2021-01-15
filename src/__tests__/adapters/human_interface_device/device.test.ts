@@ -1,27 +1,13 @@
 /* eslint-disable jest/no-mocks-import */
 import { Device } from 'node-hid';
 import HidUsbDevice from '../../../adapters/human_interface_device/device';
-import MockDevice from '../../../__mocks__/device';
-
-const deviceFactory = (path?: string): MockDevice => {
-  return new MockDevice(
-    10168,
-    493,
-    path,
-    '20002E8C',
-    'ThingM',
-    'blink(1) mk2',
-    2,
-    -1,
-    65280,
-    1
-  );
-};
+import { deviceFactory } from '../../../__mocks__/device';
 
 class MockedHid {
   bytesWritten = false;
   bytesGiven: number[] = [];
   readSyncCalled = false;
+  closeCalled = false;
 
   readSync(): number[] {
     this.readSyncCalled = true;
@@ -32,6 +18,10 @@ class MockedHid {
   write(bytes: number[]): void {
     this.bytesGiven = bytes;
     this.bytesWritten = true;
+  }
+
+  close() {
+    this.closeCalled = true;
   }
 }
 
@@ -61,18 +51,24 @@ describe('HidUsbDevice', () => {
       hidUsbDevice = new HidUsbDevice(device);
     });
 
-    it('creates a HID instance', () => {
+    it('creates a HID instance when fetching info', () => {
+      hidUsbDevice.fetchInfo([0x12]);
       expect(hidSpy.HID).toHaveBeenCalledWith(path);
     });
 
+    it('closes the HID device when fetching info', () => {
+      hidUsbDevice.fetchInfo([0x12]);
+      expect(mockedHidInstance.closeCalled).toBe(true);
+    });
+
     it('uses the HID intanance to read the USB device', () => {
-      expect(hidUsbDevice.readSync()).toEqual([0, 1, 0, 1, 3]);
+      expect(hidUsbDevice.fetchInfo([0x12])).toEqual([0, 1, 0, 1, 3]);
       expect(mockedHidInstance.readSyncCalled).toBe(true);
     });
 
     it('uses the HID intanance to write the USB device', () => {
       const bytes = [0x12, 0x16];
-      hidUsbDevice.write(bytes);
+      hidUsbDevice.fetchInfo(bytes);
 
       expect(mockedHidInstance.bytesWritten).toBe(true);
       expect(mockedHidInstance.bytesGiven).toBe(bytes);
@@ -104,7 +100,7 @@ describe('HidUsbDevice', () => {
       path = undefined;
       const device = new HidUsbDevice(deviceFactory(path));
 
-      expect(device.readSync()).toEqual([]);
+      expect(device.fetchInfo([0x12])).toEqual([]);
       expect(mockedHidInstance.readSyncCalled).toBe(false);
     });
 
@@ -112,7 +108,7 @@ describe('HidUsbDevice', () => {
       path = undefined;
       const device = new HidUsbDevice(deviceFactory(path));
 
-      device.write([0x12]);
+      device.fetchInfo([0x12]);
 
       expect(mockedHidInstance.bytesWritten).toBe(false);
       expect(mockedHidInstance.bytesGiven).toEqual([]);

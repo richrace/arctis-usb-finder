@@ -12,6 +12,15 @@ export default class MockUsbDevice implements IUsbDevice {
       this.productId = rawDevice.productId;
     }
   }
+  fetchInfo(bytes: number[]): number[] {
+    let report: number[] = [];
+
+    this.write(bytes);
+    report = this.readSync();
+    this.close();
+
+    return report;
+  }
 
   readSync(): number[] {
     return [0, 0, 0, 0, 0, 0];
@@ -25,5 +34,9 @@ export default class MockUsbDevice implements IUsbDevice {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   realDevice(): any {
     return this.rawDevice;
+  }
+
+  close(): void {
+    true;
   }
 }

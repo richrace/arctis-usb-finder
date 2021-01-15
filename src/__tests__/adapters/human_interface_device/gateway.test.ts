@@ -2,7 +2,7 @@
 import { Device } from 'node-hid';
 import HidUsbGateway from '../../../adapters/human_interface_device/gateway';
 import MockUsbDevice from '../../../__mocks__/usb_device';
-import MockDevice from '../../../__mocks__/device';
+import { MockDevice } from '../../../__mocks__/device';
 
 const notUsedDevice = new MockDevice(
   10168,
