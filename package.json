@@ -4,10 +4,14 @@
   "description": "Finds Arctis Headphones that are connected via USB",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "test": "jest --config jestconfig.json --collect-coverage",
     "test-watch": "jest --config jestconfig.json --watch",
     "build": "tsc",
+    "build:check": "tsc --noEmit",
     "lint": "eslint ."
   },
   "repository": {
@@ -25,6 +29,9 @@
     "url": "https://github.com/richrace/arctis-usb-finder/issues"
   },
   "homepage": "https://github.com/richrace/arctis-usb-finder#readme",
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.20",
     "@typescript-eslint/eslint-plugin": "^4.12.0",
