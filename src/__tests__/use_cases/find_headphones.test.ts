@@ -6,11 +6,7 @@ import FindHeadphones from '../../use_cases/find_headphones';
 import { deviceFactory } from '../../__mocks__/device';
 import MockUsbDevice from '../../__mocks__/usb_device';
 
-const matchingDevice = deviceFactory(
-  'IOService:/AppleACPIPl...HIDDevice@14210000,0',
-  4152,
-  0x12ad
-);
+const matchingDevice = deviceFactory('IOService:/AppleACPIPl...HIDDevice@14210000,0', 4152, 0x12ad);
 
 const notMatchingDevice = deviceFactory(
   'IOService:/AppleACPIPl...HIDDevice@14210000,0',
@@ -26,17 +22,11 @@ const notSupportedProductIdDevice = deviceFactory(
 
 const matchingUsbDevice = new MockUsbDevice(matchingDevice);
 const notMathcingUsbDevice = new MockUsbDevice(notMatchingDevice);
-const notSupportedProductIdUsbDevice = new MockUsbDevice(
-  notSupportedProductIdDevice
-);
+const notSupportedProductIdUsbDevice = new MockUsbDevice(notSupportedProductIdDevice);
 
 class MockedGateway implements UsbGateway {
   getUsbDevices(): UsbDevice[] {
-    return [
-      notMathcingUsbDevice,
-      matchingUsbDevice,
-      notSupportedProductIdUsbDevice,
-    ];
+    return [notMathcingUsbDevice, matchingUsbDevice, notSupportedProductIdUsbDevice];
   }
 }
 

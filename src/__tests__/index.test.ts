@@ -36,15 +36,11 @@ describe('TempName', () => {
 
   describe('when we have a found headphone', () => {
     beforeEach(() => {
-      simpleHeadphones = [
-        { modelName: 'Arctis 7X', batteryPercent: 90 } as SimpleHeadphone,
-      ];
+      simpleHeadphones = [{ modelName: 'Arctis 7X', batteryPercent: 90 } as SimpleHeadphone];
     });
 
     it('returns a SimpleHeadphone list', () => {
-      expect(getHeadphones()).toEqual([
-        { modelName: 'Arctis 7X', batteryPercent: 90 },
-      ]);
+      expect(getHeadphones()).toEqual([{ modelName: 'Arctis 7X', batteryPercent: 90 }]);
     });
   });
 });

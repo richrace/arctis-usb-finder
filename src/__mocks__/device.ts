@@ -1,10 +1,6 @@
 import { Device } from 'node-hid';
 
-export const deviceFactory = (
-  path?: string,
-  vendorId = 10168,
-  productId = 493
-): MockDevice => {
+export const deviceFactory = (path?: string, vendorId = 10168, productId = 493): MockDevice => {
   return new MockDevice(
     vendorId,
     productId,

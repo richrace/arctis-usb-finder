@@ -28,9 +28,7 @@ describe('BuildSimpleHeadphones', () => {
   it('returns the read battery percent', () => {
     const batteryPercent = 90;
 
-    jest
-      .spyOn(found.device, 'fetchInfo')
-      .mockReturnValue([0, 1, 2, batteryPercent, 5]);
+    jest.spyOn(found.device, 'fetchInfo').mockReturnValue([0, 1, 2, batteryPercent, 5]);
 
     const result = usecase.execute([found]);
 
