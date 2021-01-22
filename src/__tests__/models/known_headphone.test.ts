@@ -13,12 +13,12 @@ describe('KnownHeadphone', () => {
   beforeEach(() => {
     headphone = new KnownHeadphone(
       name,
-      vendorId,
       productId,
       batteryPercentIdx,
       writeBytes,
       chargingStatusIdx,
-      micStatusIdx
+      micStatusIdx,
+      vendorId
     );
   });
 
