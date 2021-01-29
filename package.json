@@ -12,7 +12,8 @@
     "test-watch": "jest --config jestconfig.json --watch",
     "build": "tsc",
     "build:check": "tsc --noEmit",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "check": "npm run test && npm run lint"
   },
   "repository": {
     "type": "git",
