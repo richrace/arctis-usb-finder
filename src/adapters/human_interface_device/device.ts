@@ -37,7 +37,7 @@ export default class HidUsbDevice implements UsbDevice {
 
   private readSync(): number[] {
     if (this.hidDevice) {
-      return this.hidDevice.readSync();
+      return this.hidDevice.readTimeout(100);
     }
 
     return [];
