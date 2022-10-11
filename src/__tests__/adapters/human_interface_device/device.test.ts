@@ -9,7 +9,8 @@ class MockedHid {
   readSyncCalled = false;
   closeCalled = false;
 
-  readSync(): number[] {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  readTimeout(_timoutMS: number): number[] {
     this.readSyncCalled = true;
     return [0, 1, 0, 1, 3];
   }
