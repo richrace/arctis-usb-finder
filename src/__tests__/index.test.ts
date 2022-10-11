@@ -25,7 +25,7 @@ class MockedBuildUseCsase {
 jest.mock('../adapters/human_interface_device/gateway', () => MockedGateway);
 jest.mock('../use_cases/find_headphones', () => MockedFindUseCase);
 jest.mock('../use_cases/build_simple_headphones', () => MockedBuildUseCsase);
-import getHeadphones from '../index';
+import { getHeadphones } from '../index';
 
 describe('TempName', () => {
   describe('when we have no found headphones', () => {
