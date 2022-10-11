@@ -37,7 +37,25 @@ Data structure:
 ]
 ```
 
-If the `isMuted`, `isCharging`, `isDischarging` or `isConnected` flags not supported they would return `undefined`. They are defiend per Model you can see which headphones are supported [here](src/headphone_list.ts).
+If the `isMuted`, `isCharging`, `isDischarging` or `isConnected` flags not supported they would return `undefined`. They are defined per Model you can see which headphones are supported [here](src/headphone_list.ts).
+
+## Probe
+
+This package will give you access to the executable `arctis-usb-finder-probe`. This will search for known USB dongles and will report the technical details so it can be added via an Issue.
+
+E.g.
+
+```
+Product: SteelSeries Arctis 7X
+Product ID: 4823
+Bytes: [ 6, 18 ]
+Report: [
+  6, 18, 1, 0, 0, 1, 34, 142, 1,
+  0,  0, 0, 0, 0, 0,  0,   0, 0,
+  0,  0, 0, 0, 0, 0,  0,   0, 0,
+  0,  0, 0, 0
+]
+```
 
 ## Credits
 
