@@ -37,7 +37,7 @@ Data structure:
 ]
 ```
 
-If the `isMuted`, `isCharging`, `isDischarging` or `isConnected` flags not supported they would return `undefined`. They are defiend per Model you can see which headphones are supported [here](src/headphone_list.ts).
+If the `isMuted`, `isCharging`, `isDischarging` or `isConnected` flags not supported they would return `undefined`. They are defined per Model you can see which headphones are supported [here](src/headphone_list.ts).
 
 ## Probe
 
