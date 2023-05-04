@@ -57,6 +57,12 @@ Report: [
 ]
 ```
 
+To confirm a Product ID you can open your system information, copy the highlighted text in the screen shot below and Google `0x12d7 to decimal`.
+
+![macOS of System Information showing the Product ID](docs/lookup_product_id.png)
+
 ## Credits
 
 Inspired by https://github.com/atagulalan/arctis-battery-percentage
+
+Original work done by [Fabien LOISON](https://blog.flozz.fr/2020/05/25/reverse-engineering-recuperer-le-niveau-de-batterie-du-casque-sans-fil-steelseries-arctis-7/)
