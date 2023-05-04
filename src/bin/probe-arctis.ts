@@ -1,11 +1,12 @@
 #!/usr/bin/env node
 
 import HID from 'node-hid';
+import * as readline from 'readline';
+
 import HidGateway from '../adapters/human_interface_device/gateway';
 import HidDevice from '../adapters/human_interface_device/device';
 import KnownHeadphone from '../models/known_headphone';
 import UsbDevice from '../models/usb_device';
-import * as readline from 'readline';
 
 interface ProbeResult {
   device: UsbDevice;
@@ -52,6 +53,12 @@ function printPreamble() {
   console.log('');
 }
 
+function exitMessage() {
+  console.log('Exiting...');
+
+  process.exit(1);
+}
+
 function probe() {
   console.log(' ');
   console.log('About to look for SteelSeries USB devices...');
@@ -63,6 +70,12 @@ function probe() {
   const steelseriesHeadsets = devices.filter((device: UsbDevice) => {
     return device.vendorId === KnownHeadphone.ArctisVendorID;
   });
+
+  if (steelseriesHeadsets.length < 0) {
+    console.log("Didn't find any SteelSeries Headset");
+
+    exitMessage();
+  }
 
   console.log(' ');
   console.log('Found SteelSeries USB devices:');
@@ -93,6 +106,7 @@ function probe() {
     console.log(' ');
     console.log('Devices found:');
     console.log(' ');
+
     foundHeadphones.forEach((result: ProbeResult) => {
       console.log('Product:', result.device.realDevice().product);
       console.log('Product ID:', result.device.productId);
@@ -102,7 +116,7 @@ function probe() {
     });
   }
 
-  console.log('Exiting...');
+  exitMessage();
 }
 
 const rl = readline.createInterface({
