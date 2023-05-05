@@ -1,7 +1,7 @@
 /* eslint-disable jest/no-mocks-import */
 import { Device } from 'node-hid';
 import HidUsbDevice from '../../../adapters/human_interface_device/device';
-import { deviceFactory } from '../../../__mocks__/device';
+import deviceFactory from '../../../__mocks__/device';
 
 class MockedHid {
   bytesWritten = false;

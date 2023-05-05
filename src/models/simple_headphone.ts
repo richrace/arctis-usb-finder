@@ -5,6 +5,7 @@ export default interface SimpleHeadphone {
   isConnected: boolean | undefined;
   isCharging: boolean | undefined;
   isDischarging: boolean | undefined;
+  path: string | undefined;
 
   // eslint-disable-next-line semi
 }

@@ -6,14 +6,16 @@ import SpecificBuilder from './specific_builder';
 export default class Builder {
   private specificBuilder: SpecificBuilder | undefined;
 
-  static build(report: number[], knownHeadphone: KnownHeadphone): SimpleHeadphone {
-    const builder = new Builder(report, knownHeadphone);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  static build(report: number[], path: any, knownHeadphone: KnownHeadphone): SimpleHeadphone {
+    const builder = new Builder(report, path, knownHeadphone);
     const simpleHeadphone = builder.execute();
 
     return simpleHeadphone;
   }
 
-  constructor(private report: number[], private knownHeadphone: KnownHeadphone) {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  constructor(private report: number[], private path: any, private knownHeadphone: KnownHeadphone) {
     switch (this.knownHeadphone.productId) {
       case KnownHeadphone.Arctis7XProductID:
         this.specificBuilder = new Arctis7xBuilder();
@@ -25,6 +27,7 @@ export default class Builder {
     let headphone = {
       modelName: this.knownHeadphone.name,
       batteryPercent: this.report[this.knownHeadphone.batteryPercentIdx],
+      path: this.path
     } as SimpleHeadphone;
 
     if (this.specificBuilder) {

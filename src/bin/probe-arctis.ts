@@ -56,7 +56,7 @@ function printPreamble() {
 function exitMessage() {
   console.log('Exiting...');
 
-  process.exit(1);
+  process.exit(0);
 }
 
 function probe() {
@@ -112,6 +112,7 @@ function probe() {
       console.log('Product ID:', result.device.productId);
       console.log('Bytes:', result.matchedBytes);
       console.log('Report:', result.matchedReport);
+      console.log('Path:', result.device.path());
       console.log(' ');
     });
   }

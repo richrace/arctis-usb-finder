@@ -12,6 +12,7 @@ export default class MockUsbDevice implements UsbDevice {
       this.productId = rawDevice.productId;
     }
   }
+
   fetchInfo(bytes: number[]): number[] {
     let report: number[] = [];
 
@@ -34,6 +35,10 @@ export default class MockUsbDevice implements UsbDevice {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   realDevice(): any {
     return this.rawDevice;
+  }
+
+  path(): string | undefined {
+    return "Path ";
   }
 
   close(): void {

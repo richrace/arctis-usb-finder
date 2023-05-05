@@ -32,12 +32,13 @@ Data structure:
     isDischarging: true,
     isConnected: true,
     modelName: 'Arctis 7X',
-    batteryPercent: 58
+    batteryPercent: 58,
+    path: 'IOService:/AppleACPIPlatformExpert/PCI0@0/AppleACPIPCI/XHC1@14/XHC1@14000000/HS06@14100000/USB2.0 Hub             @14100000/AppleUSB20Hub@14100000/AppleUSB20HubPort@14120000/SteelSeries Arctis 7X@14120000/SteelSeries Arctis 7X@3/AppleUserUSBHostHIDDevice'
   }
 ]
 ```
 
-If the `isMuted`, `isCharging`, `isDischarging` or `isConnected` flags not supported they would return `undefined`. They are defined per Model you can see which headphones are supported [here](src/headphone_list.ts).
+If the `isMuted`, `isCharging`, `isDischarging` or `isConnected` flags not supported they would return `undefined`. They are defined per Model you can see which headphones are supported [here](src/headphone_list.ts). The `path` is the `HID` path.
 
 ## Probe
 
@@ -55,6 +56,7 @@ Report: [
   0,  0, 0, 0, 0, 0,  0,   0, 0,
   0,  0, 0, 0
 ]
+path: 'IOService:/AppleACPIPlatformExpert/PCI0@0/AppleACPIPCI/XHC1@14/XHC1@14000000/HS06@14100000/USB2.0 Hub             @14100000/AppleUSB20Hub@14100000/AppleUSB20HubPort@14120000/SteelSeries Arctis 7X@14120000/SteelSeries Arctis 7X@3/AppleUserUSBHostHIDDevice'
 ```
 
 To confirm a Product ID you can open your system information, copy the highlighted text in the screen shot below and Google `0x12d7 to decimal`.

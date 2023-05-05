@@ -3,7 +3,7 @@ import UsbGateway from '../../gateways/usb_gateway';
 import UsbDevice from '../../models/usb_device';
 import HeadphoneList from '../../headphone_list';
 import FindHeadphones from '../../use_cases/find_headphones';
-import { deviceFactory } from '../../__mocks__/device';
+import deviceFactory from '../../__mocks__/device';
 import MockUsbDevice from '../../__mocks__/usb_device';
 
 const matchingDevice = deviceFactory('IOService:/AppleACPIPl...HIDDevice@14210000,0', 4152, 0x12ad);
