@@ -1,6 +1,6 @@
 {
   "name": "arctis-usb-finder",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "Finds Arctis Headphones that are connected via USB",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
