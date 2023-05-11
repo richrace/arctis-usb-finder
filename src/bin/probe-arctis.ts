@@ -49,7 +49,7 @@ function printPreamble() {
   console.log(' ');
   console.log('This tool will probe USB devices that look like they are SteelSeries USB devices.');
   console.log('**** It will write/send a command to the USB device. ****');
-  console.log('**** It may have side effects / potenitally brick your device. ****');
+  console.log('**** It may have side effects / potentially (worst case) brick your device. ****');
   console.log('');
 }
 
