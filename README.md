@@ -4,7 +4,7 @@
 [![Publish to NPM](https://github.com/richrace/arctis-usb-finder/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/richrace/arctis-usb-finder/actions/workflows/npm-publish.yml)
 [![NPM Version](https://badge.fury.io/js/arctis-usb-finder.svg?style=flat)](https://npmjs.org/package/arctis-usb-finder)
 [![Code Climate](https://codeclimate.com/github/richrace/arctis-usb-finder/badges/gpa.svg)](https://codeclimate.com/github/richrace/arctis-usb-finder)
-
+[![codecov](https://codecov.io/gh/richrace/arctis-usb-finder/branch/main/graph/badge.svg?token=T3QMYY47AT)](https://codecov.io/gh/richrace/arctis-usb-finder)
 
 Finds known Arctis headsets that are currently plugged in via the USB dongle.
 
