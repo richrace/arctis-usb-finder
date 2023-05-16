@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import KnownHeadphone from '../../models/known_headphone';
-import SimpleHeadphone from '../../models/simple_headphone';
+import SimpleHeadphone from '../../interfaces/simple_headphone';
 import Arctis7xBuilder from './7x_builder';
 import SpecificBuilder from './specific_builder';
 

@@ -1,6 +1,6 @@
-import UsbGateway from '../gateways/usb_gateway';
+import UsbGateway from '../interfaces/usb_gateway';
 import HeadphoneList from '../headphone_list';
-import FoundHeadphone from '../models/found_headphone';
+import FoundHeadphone from '../interfaces/found_headphone';
 import KnownHeadphone from '../models/known_headphone';
 
 export default class FindHeadphones {

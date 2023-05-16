@@ -9,6 +9,7 @@ export default class KnownHeadphone {
   static Arctis7XProductID = 0x12d7;
   static Arctis7PPlusProductID = 0x2212;
   static ArctisNova7ProductID = 0x2202;
+  static ArctisNova7XProductID = 0x2206;
 
   constructor(
     readonly name: string,
@@ -17,7 +18,7 @@ export default class KnownHeadphone {
     readonly writeBytes: number[],
     readonly chargingStatusIdx?: number,
     readonly micStatusIdx?: number,
-    readonly path?: string,
+    public path?: string,
     readonly vendorId = KnownHeadphone.ArctisVendorID
   ) {}
 }

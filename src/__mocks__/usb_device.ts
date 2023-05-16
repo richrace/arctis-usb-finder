@@ -1,20 +1,20 @@
 import { Device } from 'node-hid';
-import UsbDevice from '../models/usb_device';
+import UsbDevice from '../interfaces/usb_device';
 
 export default class MockUsbDevice implements UsbDevice {
   bytesWritten = false;
-  vendorId = 123;
-  productId = 456;
+  vendorId;
+  productId;
 
-  constructor(private rawDevice: Device) {
-    if (this.rawDevice) {
-      this.vendorId = rawDevice.vendorId;
-      this.productId = rawDevice.productId;
-    }
+  constructor(private rawDevice: Device, vendorId?: number, productId?: number) {
+    this.vendorId = vendorId || rawDevice.vendorId;
+    this.productId = productId || rawDevice.productId;
   }
 
   fetchInfo(bytes: number[]): number[] {
     let report: number[] = [];
+
+    this.connectToHID();
 
     this.write(bytes);
     report = this.readSync();
@@ -42,6 +42,10 @@ export default class MockUsbDevice implements UsbDevice {
   }
 
   close(): void {
+    true;
+  }
+
+  connectToHID(): void {
     true;
   }
 }

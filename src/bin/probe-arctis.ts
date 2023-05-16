@@ -6,7 +6,7 @@ import * as readline from 'readline';
 import HidGateway from '../adapters/human_interface_device/gateway';
 import HidDevice from '../adapters/human_interface_device/device';
 import KnownHeadphone from '../models/known_headphone';
-import UsbDevice from '../models/usb_device';
+import UsbDevice from '../interfaces/usb_device';
 
 interface ProbeResult {
   device: UsbDevice;

@@ -62,12 +62,12 @@ describe('HidUsbDevice', () => {
       expect(mockedHidInstance.closeCalled).toBe(true);
     });
 
-    it('uses the HID intanance to read the USB device', () => {
+    it('uses the HID Instance to read the USB device', () => {
       expect(hidUsbDevice.fetchInfo([0x12])).toEqual([0, 1, 0, 1, 3]);
       expect(mockedHidInstance.readSyncCalled).toBe(true);
     });
 
-    it('uses the HID intanance to write the USB device', () => {
+    it('uses the HID Instance to write the USB device', () => {
       const bytes = [0x12, 0x16];
       hidUsbDevice.fetchInfo(bytes);
 
@@ -86,20 +86,26 @@ describe('HidUsbDevice', () => {
     it('will have the ProductID', () => {
       expect(hidUsbDevice.productId).toEqual(493);
     });
+
+    it('has a path', () => {
+      expect(hidUsbDevice.path()).toEqual(path);
+    });
   });
 
-  describe('when path is undefined', () => {
+  describe('when path is undefined and vendor ID is undefined', () => {
     it('does not create a HID instance', () => {
+      const vendorId = 0;
       path = undefined;
 
-      new HidUsbDevice(deviceFactory(path));
+      new HidUsbDevice(deviceFactory(path, vendorId));
 
       expect(hidSpy.HID).not.toHaveBeenCalled();
     });
 
     it('does not read anything on the HID device', () => {
       path = undefined;
-      const device = new HidUsbDevice(deviceFactory(path));
+      const vendorId = 0;
+      const device = new HidUsbDevice(deviceFactory(path, vendorId));
 
       expect(device.fetchInfo([0x12])).toEqual([]);
       expect(mockedHidInstance.readSyncCalled).toBe(false);
@@ -107,12 +113,24 @@ describe('HidUsbDevice', () => {
 
     it('does not write anything on the HID device', () => {
       path = undefined;
-      const device = new HidUsbDevice(deviceFactory(path));
+      const vendorId = 0;
+      const device = new HidUsbDevice(deviceFactory(path, vendorId));
 
       device.fetchInfo([0x12]);
 
       expect(mockedHidInstance.bytesWritten).toBe(false);
       expect(mockedHidInstance.bytesGiven).toEqual([]);
+    });
+  });
+
+  describe('when path is undefined and vendor ID and product ID are present', () => {
+    it('tries to write to the device', () => {
+      path = undefined;
+      const device = new HidUsbDevice(deviceFactory(path));
+
+      device.fetchInfo([0x12]);
+
+      expect(mockedHidInstance.bytesWritten).toBe(true);
     });
   });
 });
