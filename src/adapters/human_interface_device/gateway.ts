@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Device } from 'node-hid';
-import UsbGateway from '../../gateways/usb_gateway';
-import UsbDevice from '../../models/usb_device';
+import UsbGateway from '../../interfaces/usb_gateway';
+import UsbDevice from '../../interfaces/usb_device';
 
 export default class HidUsbGateway implements UsbGateway {
   private usbProvider;
@@ -21,4 +21,8 @@ export default class HidUsbGateway implements UsbGateway {
       .filter((device: Device) => device.usage !== 1)
       .map((device: Device) => new this.usbModel(device));
   }
-}
+
+  getHeadphoneByVendorIdAndProductId(vendorId: number, productId: number): UsbDevice {
+    return new this.usbModel(undefined, vendorId, productId);
+  }
+ }

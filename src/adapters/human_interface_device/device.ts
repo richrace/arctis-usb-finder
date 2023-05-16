@@ -1,26 +1,21 @@
 import { HID, Device } from 'node-hid';
-import UsbDevice from '../../models/usb_device';
+import UsbDevice from '../../interfaces/usb_device';
 
 export default class HidUsbDevice implements UsbDevice {
-  private rawDevice: Device;
   private hidDevice: HID | undefined;
-  vendorId = 999999;
-  productId = 999999;
+  vendorId: number;
+  productId: number;
 
-  constructor(rawDevice: Device) {
-    this.rawDevice = rawDevice;
-
-    this.vendorId = rawDevice.vendorId;
-    this.productId = rawDevice.productId;
+  constructor(private rawDevice: Device, vendorId?: number, productId?: number) {
+    this.vendorId = vendorId || rawDevice.vendorId;
+    this.productId = productId || rawDevice.productId;
   }
 
   fetchInfo(writeBytes: number[]): number[] {
     let report: number[] = [];
 
     try {
-      if (this.rawDevice.path) {
-        this.hidDevice = new HID(this.rawDevice.path);
-      }
+      this.connectToHID();
 
       this.write(writeBytes);
       report = this.readSync();
@@ -37,6 +32,24 @@ export default class HidUsbDevice implements UsbDevice {
 
   path(): string | undefined {
     return this.rawDevice.path;
+  }
+
+  // There's two ways you can have a HID connection.
+  //  1. From the `HID.devices()` method with everything auto filled in or
+  //  2. We need to make a connection from the `vendorId` and `productId`
+  //
+  // This logic ensures we have an useable HID connection
+  private connectToHID(): void {
+    if (this.rawDevice !== undefined && this.rawDevice.path) {
+      this.hidDevice = new HID(this.rawDevice.path);
+    } else if (this.vendorId !== undefined && this.vendorId !== 0) {
+      try {
+        this.hidDevice = this.createNewHIDByVendorIdAndProductId();
+      } catch(e) {
+        // This happens if the device (USB Dongle) has been removed
+        // console.debug(e);
+      }
+    }
   }
 
   private readSync(): number[] {
@@ -57,5 +70,9 @@ export default class HidUsbDevice implements UsbDevice {
     if (this.hidDevice) {
       this.hidDevice.close();
     }
+  }
+
+  private createNewHIDByVendorIdAndProductId(): HID {
+    return new HID(this.vendorId, this.productId);
   }
 }

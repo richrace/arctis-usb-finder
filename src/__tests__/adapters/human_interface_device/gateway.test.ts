@@ -69,4 +69,10 @@ describe('UsbGateway', () => {
 
     expect(usbDevices.length).toBe(1);
   });
+
+  it('returns a connected USB device if it is connected', () => {
+    const device = gateway.getHeadphoneByVendorIdAndProductId(10168, 493);
+
+    expect(device.productId).toEqual(493);
+  });
 });

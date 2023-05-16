@@ -1,5 +1,5 @@
 import KnownHeadphone from '../../../models/known_headphone';
-import SimpleHeadphone from '../../../models/simple_headphone';
+import SimpleHeadphone from '../../../interfaces/simple_headphone';
 import Arctis7xBuilder from '../../../use_cases/headsets/7x_builder';
 jest.mock('../../../use_cases/headsets/7x_builder');
 import Builder from '../../../use_cases/headsets/builder';

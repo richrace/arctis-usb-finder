@@ -1,5 +1,5 @@
-import FoundHeadphone from '../models/found_headphone';
-import SimpleHeadphone from '../models/simple_headphone';
+import FoundHeadphone from '../interfaces/found_headphone';
+import SimpleHeadphone from '../interfaces/simple_headphone';
 import Builder from './headsets/builder';
 
 export default class BuildSimpleHeadphones {

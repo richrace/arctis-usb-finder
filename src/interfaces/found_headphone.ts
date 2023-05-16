@@ -1,5 +1,5 @@
 import UsbDevice from './usb_device';
-import KnownHeadphone from './known_headphone';
+import KnownHeadphone from '../models/known_headphone';
 
 export default interface FoundHeadphone {
   device: UsbDevice;

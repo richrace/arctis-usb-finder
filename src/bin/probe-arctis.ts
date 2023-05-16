@@ -6,7 +6,7 @@ import * as readline from 'readline';
 import HidGateway from '../adapters/human_interface_device/gateway';
 import HidDevice from '../adapters/human_interface_device/device';
 import KnownHeadphone from '../models/known_headphone';
-import UsbDevice from '../models/usb_device';
+import UsbDevice from '../interfaces/usb_device';
 
 interface ProbeResult {
   device: UsbDevice;
@@ -49,7 +49,7 @@ function printPreamble() {
   console.log(' ');
   console.log('This tool will probe USB devices that look like they are SteelSeries USB devices.');
   console.log('**** It will write/send a command to the USB device. ****');
-  console.log('**** It may have side effects / potenitally brick your device. ****');
+  console.log('**** It may have side effects / potentially (worst case) brick your device. ****');
   console.log('');
 }
 

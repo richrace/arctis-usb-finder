@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-mocks-import */
-import UsbGateway from '../../gateways/usb_gateway';
-import UsbDevice from '../../models/usb_device';
+import UsbGateway from '../../interfaces/usb_gateway';
+import UsbDevice from '../../interfaces/usb_device';
 import HeadphoneList from '../../headphone_list';
 import FindHeadphones from '../../use_cases/find_headphones';
 import deviceFactory from '../../__mocks__/device';
@@ -21,12 +21,17 @@ const notSupportedProductIdDevice = deviceFactory(
 );
 
 const matchingUsbDevice = new MockUsbDevice(matchingDevice);
-const notMathcingUsbDevice = new MockUsbDevice(notMatchingDevice);
+const notMatchingUsbDevice = new MockUsbDevice(notMatchingDevice);
 const notSupportedProductIdUsbDevice = new MockUsbDevice(notSupportedProductIdDevice);
 
 class MockedGateway implements UsbGateway {
   getUsbDevices(): UsbDevice[] {
-    return [notMathcingUsbDevice, matchingUsbDevice, notSupportedProductIdUsbDevice];
+    return [notMatchingUsbDevice, matchingUsbDevice, notSupportedProductIdUsbDevice];
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getHeadphoneByVendorIdAndProductId(_vendorId: number, _productId: number): UsbDevice {
+    return {} as UsbDevice;
   }
 }
 

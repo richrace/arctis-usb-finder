@@ -1,5 +1,5 @@
 /* eslint-disable jest/no-mocks-import */
-import FoundHeadphone from '../../models/found_headphone';
+import FoundHeadphone from '../../interfaces/found_headphone';
 import KnownHeadphone from '../../models/known_headphone';
 import Builder from '../../use_cases/headsets/builder';
 jest.mock('../../use_cases/headsets/builder');
