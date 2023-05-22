@@ -4,21 +4,21 @@ import FilterKnownHeadphones from '../../use_cases/filter_known_headphones';
 
 describe('FilterKnownHeadphones', () => {
   describe('#execute', () => {
-    it('will reject paths that are "undefined"', () => {
-      const useCase = new FilterKnownHeadphones();
+    let useCase: FilterKnownHeadphones;
 
+    beforeEach(() => {
+      useCase = new FilterKnownHeadphones();
+    });
+
+    it('will reject paths that are "undefined"', () => {
       expect(useCase.execute([{ path: undefined }] as SimpleHeadphone[])).toEqual([]);
     });
 
     it(`will reject paths that don't have a matching name`, () => {
-      const useCase = new FilterKnownHeadphones();
-
       expect(useCase.execute([{ path: 'Arctis Pro X' }] as SimpleHeadphone[])).toEqual([]);
     });
 
     it('will return a matched headphone by path', () => {
-      const useCase = new FilterKnownHeadphones();
-
       expect(useCase.execute([{ path: 'Made up Arctis 7X@' }] as SimpleHeadphone[])).toEqual([
         {
           batteryPercentIdx: 3,
@@ -34,8 +34,6 @@ describe('FilterKnownHeadphones', () => {
     });
 
     it('will return a matched headphone by a real path', () => {
-      const useCase = new FilterKnownHeadphones();
-
       expect(
         useCase.execute([
           {
