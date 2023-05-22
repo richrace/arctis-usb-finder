@@ -33,6 +33,8 @@ Data structure:
     isCharging: false,
     isDischarging: true,
     isConnected: true,
+    vendorId: 4152,
+    productId: 4823,
     modelName: 'Arctis 7X',
     batteryPercent: 58,
     path: 'IOService:/AppleACPIPlatformExpert/PCI0@0/AppleACPIPCI/XHC1@14/XHC1@14000000/HS06@14100000/USB2.0 Hub             @14100000/AppleUSB20Hub@14100000/AppleUSB20HubPort@14120000/SteelSeries Arctis 7X@14120000/SteelSeries Arctis 7X@3/AppleUserUSBHostHIDDevice'
@@ -53,8 +55,12 @@ const headphones = refreshHeadphones(
       isConnected: true,
       modelName: 'Arctis 7X',
       batteryPercent: 50, // Changed
-      // Required
-      path: 'IOService:/AppleACPIPlatformExpert/PCI0@0/AppleACPIPCI/XHC1@14/XHC1@14000000/HS06@14100000/USB2.0 Hub             @14100000/AppleUSB20Hub@14100000/AppleUSB20HubPort@14120000/SteelSeries Arctis 7X@14120000/SteelSeries Arctis 7X@3/AppleUserUSBHostHIDDevice'
+      // Optional either
+      // Path
+      path: 'IOService:/AppleACPIPlatformExpert/PCI0@0/AppleACPIPCI/XHC1@14/XHC1@14000000/HS06@14100000/USB2.0 Hub             @14100000/AppleUSB20Hub@14100000/AppleUSB20HubPort@14120000/SteelSeries Arctis 7X@14120000/SteelSeries Arctis 7X@3/AppleUserUSBHostHIDDevice',
+      // or Vendor ID AND Product ID
+      vendorId: 4152,
+      productId: 4823,
     }
   ]
 )

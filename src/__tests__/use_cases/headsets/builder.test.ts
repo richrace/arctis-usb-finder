@@ -72,10 +72,14 @@ describe('Builder', () => {
             isCharging: undefined,
             isDischarging: undefined,
             isConnected: undefined,
+            productId: 4823,
+            vendorId: undefined,
           },
           {
             modelName: undefined,
             batteryPercent: undefined,
+            productId: 4823,
+            vendorId: undefined,
           }
         );
       });

@@ -1,6 +1,6 @@
 import KnownHeadphone from '../../models/known_headphone';
 import SimpleHeadphone from '../../interfaces/simple_headphone';
-import SpecificBuilder from './specific_builder';
+import SpecificBuilder from '../../interfaces/specific_builder';
 
 export default class Arctis7xBuilder implements SpecificBuilder {
   execute(report: number[], knownHeadphone: KnownHeadphone): SimpleHeadphone {
