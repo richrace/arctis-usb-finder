@@ -42,6 +42,8 @@ describe('RefreshInfo', () => {
       modelName: 'Arctis 7X',
       batteryPercent: 58,
       path: 'Not a real USB HID path',
+      productId: 4823,
+      vendorId: 4125,
     },
   ];
 

@@ -27,8 +27,10 @@ export default class Builder {
   execute(): SimpleHeadphone {
     let headphone = {
       modelName: this.knownHeadphone.name,
+      vendorId: this.knownHeadphone.vendorId,
+      productId: this.knownHeadphone.productId,
       batteryPercent: this.report[this.knownHeadphone.batteryPercentIdx],
-      path: this.path
+      path: this.path,
     } as SimpleHeadphone;
 
     if (this.specificBuilder) {

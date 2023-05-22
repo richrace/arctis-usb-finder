@@ -1,6 +1,8 @@
 export default interface SimpleHeadphone {
   batteryPercent: number;
   modelName: string;
+  vendorId: number;
+  productId: number;
   isMuted: boolean | undefined;
   isConnected: boolean | undefined;
   isCharging: boolean | undefined;
