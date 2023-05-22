@@ -2,7 +2,7 @@
 import KnownHeadphone from '../../models/known_headphone';
 import SimpleHeadphone from '../../interfaces/simple_headphone';
 import Arctis7xBuilder from './7x_builder';
-import SpecificBuilder from './specific_builder';
+import SpecificBuilder from '../../interfaces/specific_builder';
 
 export default class Builder {
   private specificBuilder: SpecificBuilder | undefined;
