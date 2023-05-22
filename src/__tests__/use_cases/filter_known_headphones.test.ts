@@ -19,13 +19,13 @@ describe('FilterKnownHeadphones', () => {
     it('will return a matched headphone by path', () => {
       const useCase = new FilterKnownHeadphones();
 
-      expect(useCase.execute([{ path: 'Arctis 7X' }] as SimpleHeadphone[])).toEqual([
+      expect(useCase.execute([{ path: 'Made up Arctis 7X@' }] as SimpleHeadphone[])).toEqual([
         {
           batteryPercentIdx: 3,
           chargingStatusIdx: 4,
           micStatusIdx: 5,
           name: 'Arctis 7X',
-          path: 'Arctis 7X',
+          path: 'Made up Arctis 7X@',
           productId: 4823,
           vendorId: 4152,
           writeBytes: [6, 18],
@@ -33,36 +33,22 @@ describe('FilterKnownHeadphones', () => {
       ]);
     });
 
-    it('will return a matched headphone by path with possible match', () => {
+    it('will return a matched headphone by a real path', () => {
       const useCase = new FilterKnownHeadphones();
 
-      expect(useCase.execute([{ path: 'Arctis 7' }] as SimpleHeadphone[])).toEqual([
-        {
-          batteryPercentIdx: 2,
-          chargingStatusIdx: undefined,
-          micStatusIdx: undefined,
-          name: 'Arctis 7 2019',
-          path: 'Arctis 7',
-          productId: 4781,
-          vendorId: 4152,
-          writeBytes: [6, 24],
-        } as KnownHeadphone,
-        {
-          batteryPercentIdx: 2,
-          chargingStatusIdx: undefined,
-          micStatusIdx: undefined,
-          name: 'Arctis 7 2017',
-          path: 'Arctis 7',
-          productId: 4704,
-          vendorId: 4152,
-          writeBytes: [6, 24],
-        } as KnownHeadphone,
+      expect(
+        useCase.execute([
+          {
+            path: 'IOService:/AppleACPIPlatformExpert/PCI0@0/AppleACPIPCI/XHC1@14/XHC1@14000000/HS06@14100000/USB2.0 Hub             @14100000/AppleUSB20Hub@14100000/AppleUSB20HubPort@14120000/SteelSeries Arctis 7X@14120000/SteelSeries Arctis 7X@3/AppleUserUSBHostHIDDevice',
+          },
+        ] as SimpleHeadphone[])
+      ).toEqual([
         {
           batteryPercentIdx: 3,
           chargingStatusIdx: 4,
           micStatusIdx: 5,
           name: 'Arctis 7X',
-          path: 'Arctis 7',
+          path: 'IOService:/AppleACPIPlatformExpert/PCI0@0/AppleACPIPCI/XHC1@14/XHC1@14000000/HS06@14100000/USB2.0 Hub             @14100000/AppleUSB20Hub@14100000/AppleUSB20HubPort@14120000/SteelSeries Arctis 7X@14120000/SteelSeries Arctis 7X@3/AppleUserUSBHostHIDDevice',
           productId: 4823,
           vendorId: 4152,
           writeBytes: [6, 18],
