@@ -11,7 +11,9 @@ export default class FilterKnownHeadphones implements Interfaces.SimpleHeadphone
           return knownHeadphones;
         }
 
-        if (known.name.indexOf(rawHeadphone.path) !== -1) {
+        const regex = new RegExp(`(Steel\\s*?Series\\s*?${known.name}\\@)|(${known.name})\\@`, 'i');
+
+        if (regex.test(rawHeadphone.path)) {
           known.path = rawHeadphone.path;
           knownHeadphones.push(known);
         }
