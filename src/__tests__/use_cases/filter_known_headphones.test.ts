@@ -26,6 +26,12 @@ describe('FilterKnownHeadphones', () => {
       expect(useCase.execute([{ path: undefined }] as SimpleHeadphone[])).toEqual([]);
     });
 
+    it('will find headphone with Vendor ID and Product ID', () => {
+      expect(
+        useCase.execute([{ path: 'test', productId: 4823, vendorId: 4152 }] as SimpleHeadphone[])
+      ).toEqual([{ ...knownHeadphone, path: 'test' }]);
+    });
+
     it(`will reject paths that don't have a matching name`, () => {
       expect(useCase.execute([{ path: 'Arctis Pro X' }] as SimpleHeadphone[])).toEqual([]);
     });
