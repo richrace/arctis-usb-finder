@@ -8,6 +8,17 @@
 
 Finds known Arctis headsets that are currently plugged in via the USB dongle.
 
+## Supported Headphones
+
+* Arctis 7 2019
+* Arctis 7 2017
+* Arctis Pro
+* Arctis 1 Wireless
+* Arctis 9
+* Arctis 7X
+
+See [Probe](#probe) for how to get find new devices.
+
 ## Usage
 
 Install the package:
