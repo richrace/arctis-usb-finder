@@ -19,10 +19,10 @@ jobs:
           - macos-latest
           - windows-latest
         node_version:
-          - 14
           - 16
           - 18
           - 19
+          - 20
         architecture:
           - x64
     name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }} on ${{ matrix.os }}
