@@ -32,7 +32,7 @@ jobs:
         with:
           node-version: ${{ matrix.node_version }}
           architecture: ${{ matrix.architecture }}
-      - run: npm install
+      - run: npm ci
       - run: npm test
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v3
@@ -46,7 +46,7 @@ jobs:
         with:
           node-version: 19
       - name: Install
-        run: npm install
+        run: npm ci
       - name: ESlint
         run: npm run lint
 
