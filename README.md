@@ -16,6 +16,7 @@ Finds known Arctis headsets that are currently plugged in via the USB dongle.
 * Arctis 1 Wireless
 * Arctis 9
 * Arctis 7X
+* Arctis 7+ 2022
 
 See [Probe](#probe) for how to get find new devices.
 
