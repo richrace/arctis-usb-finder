@@ -80,8 +80,8 @@ const headphones = refreshHeadphones(
 
 ### Note
 
-* If the `isMuted`, `isCharging`, `isDischarging` or `isConnected` flags not supported they would return `undefined`. They are defined per Model you can see which headphones are supported [here](src/headphone_list.ts). The `path` is the `HID` path.
-* `refreshHeadphones` requires a `path` value, it will not pick up additional headphones or headphones moved to another port.
+* If the `isMuted`, `isCharging`, `isDischarging` or `isConnected` flags are not supported, they would return `undefined`. They are defined per Model you can see which headphones are supported [here](src/headphone_list.ts). The `path` is the `HID` path.
+* `refreshHeadphones` requires a `path` value; it will not pick up additional headphones or headphones moved to another port.
 
 ## Development
 
@@ -89,7 +89,7 @@ Use `npm install` to install all the dependencies and `npm test` to run the test
 
 ### Probe
 
-This package will give you access to the executable `arctis-usb-finder-probe`. This will search for known USB dongles and will report the technical details so it can be added via an Issue.
+Install this package `npm install arctis-usb-finder`, which will give you access to the executable `arctis-usb-finder-probe`. This will search for known USB dongles and will report the technical details so it can be added via an Issue.
 
 E.g.
 
@@ -118,7 +118,7 @@ Path: IOService:/AppleACPIPlatformExpert/PCI0@0/AppleACPIPCI/XHC1@14/XHC1@140000
 
 This means that we know what the `Product ID` is but not what the `Bytes` are to get the information via the `report`. Create an Issue with this text.
 
-To confirm a Product ID you can open your system information, copy the highlighted text in the screen shot below and Google `0x12d7 to decimal`.
+To confirm a Product ID, you can open your system information, copy the highlighted text in the screenshot below and Google `0x12d7 to decimal`.
 
 ![macOS of System Information showing the Product ID](docs/lookup_product_id.png)
 
