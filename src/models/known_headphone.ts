@@ -3,7 +3,7 @@ export default class KnownHeadphone {
 
   static Arctis7_2019_ProductID = 0x12ad;
   static Arctis7_2017_ProductID = 0x1260;
-  static Arctis7_Plus_2022_ProductID = 0x220E;
+  static Arctis7_Plus_2022_ProductID = 0x220e;
   static ArctisProProductID = 0x1252;
   static Arctis1WProductID = 0x12b3;
   static Arctis9ProductID = 0x12c2;
