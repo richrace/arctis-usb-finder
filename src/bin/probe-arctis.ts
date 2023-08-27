@@ -1,48 +1,10 @@
 #!/usr/bin/env node
 
-import HID from 'node-hid';
 import * as readline from 'readline';
 
-import HidGateway from '../adapters/human_interface_device/gateway';
-import HidDevice from '../adapters/human_interface_device/device';
-import KnownHeadphone from '../models/known_headphone';
 import UsbDevice from '../interfaces/usb_device';
-
-interface ProbeResult {
-  device: UsbDevice;
-  matchedBytes: number[] | undefined;
-  matchedReport: number[] | undefined;
-}
-
-function testUnknownHeadset(headsets: UsbDevice[]): ProbeResult[] {
-  return headsets.map((device: UsbDevice) => {
-    const knownBytes = [
-      [0x06, 0x18],
-      [0x06, 0x12],
-    ];
-    let matchedReport, matchedBytes;
-
-    console.log('Testing', device.realDevice().product);
-
-    knownBytes.some((byteArray) => {
-      const report = device.fetchInfo(byteArray);
-
-      if (report.length > 0) {
-        matchedBytes = byteArray;
-        matchedReport = report;
-        console.log('\tSuccess!');
-
-        return true;
-      }
-    });
-
-    return {
-      device,
-      matchedBytes,
-      matchedReport,
-    } as ProbeResult;
-  });
-}
+import Probe from '../use_cases/probe';
+import ProbeResult from '../interfaces/probe_result';
 
 function printPreamble() {
   console.log('Welcome to Arctis USB Finder Probe');
@@ -64,12 +26,9 @@ function probe() {
   console.log('About to look for SteelSeries USB devices...');
   console.log(' ');
 
-  const gateway = new HidGateway(HID, HidDevice);
-  const devices = gateway.getUsbDevices();
+  const probe = new Probe();
 
-  const steelseriesHeadsets = devices.filter((device: UsbDevice) => {
-    return device.vendorId === KnownHeadphone.ArctisVendorID;
-  });
+  const steelseriesHeadsets = probe.steelseriesHeadsets();
 
   if (steelseriesHeadsets.length < 0) {
     console.log("Didn't find any SteelSeries Headset");
@@ -86,7 +45,7 @@ function probe() {
   console.log('About to Probe...');
   console.log(' ');
 
-  const foundHeadphones = testUnknownHeadset(steelseriesHeadsets);
+  const foundHeadphones = probe.testUnknownHeadset(steelseriesHeadsets);
 
   console.log(' ');
   console.log('**** Finished Probing ****');
