@@ -14,7 +14,7 @@ describe('HeadphoneList', () => {
     });
 
     it('contains a name', () => {
-      expect(firstElement.name).toBe('Arctis 7 2019');
+      expect(firstElement.name).toBe('Arctis Pro Wireless');
     });
   });
 });

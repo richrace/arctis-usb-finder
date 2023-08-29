@@ -6,19 +6,11 @@ import FindHeadphones from '../../use_cases/find_headphones';
 import deviceFactory from '../../__mocks__/device';
 import MockUsbDevice from '../../__mocks__/usb_device';
 
-const matchingDevice = deviceFactory('IOService:/AppleACPIPl...HIDDevice@14210000,0', 4152, 0x12ad);
+const matchingDevice = deviceFactory('IOService:/AppleACPIPl...HIDDevice@14210000,0', 4152, 0x1290);
 
-const notMatchingDevice = deviceFactory(
-  'IOService:/AppleACPIPl...HIDDevice@14210000,0',
-  10168,
-  493
-);
+const notMatchingDevice = deviceFactory('IOService:/AppleACPIPl...HIDDevice@14210000,0', 10168, 493);
 
-const notSupportedProductIdDevice = deviceFactory(
-  'IOService:/AppleACPIPl...HIDDevice@14210000,0',
-  4152,
-  0x12d2
-);
+const notSupportedProductIdDevice = deviceFactory('IOService:/AppleACPIPl...HIDDevice@14210000,0', 4152, 0x12d2);
 
 const matchingUsbDevice = new MockUsbDevice(matchingDevice);
 const notMatchingUsbDevice = new MockUsbDevice(notMatchingDevice);
