@@ -16,8 +16,11 @@ export default class Probe {
   testUnknownHeadset(headsets: UsbDevice[]): ProbeResult[] {
     return headsets.map((device: UsbDevice) => {
       const knownBytes = [
-        [0x06, 0x18],
+        [0x0, 0x20],
         [0x06, 0x12],
+        [0x06, 0x18],
+        [0x40, 0xaa],
+        [0x00, 0xb0],
       ];
       let matchedReport, matchedBytes;
 
