@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import KnownHeadphone from '../../models/known_headphone';
 import SimpleHeadphone from '../../interfaces/simple_headphone';
-import Arctis7xBuilder from './7x_builder';
 import SpecificBuilder from '../../interfaces/specific_builder';
+import Arctis7xBuilder from './7x_builder';
 
 export default class Builder {
   private specificBuilder: SpecificBuilder | undefined;
@@ -18,7 +18,7 @@ export default class Builder {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   constructor(private report: number[], private path: any, private knownHeadphone: KnownHeadphone) {
     switch (this.knownHeadphone.productId) {
-      case KnownHeadphone.Arctis7XProductID:
+      case KnownHeadphone.Arctis7X_ProductID:
         this.specificBuilder = new Arctis7xBuilder();
         break;
     }
@@ -34,10 +34,7 @@ export default class Builder {
     } as SimpleHeadphone;
 
     if (this.specificBuilder) {
-      headphone = Object.assign(
-        this.specificBuilder.execute(this.report, this.knownHeadphone),
-        headphone
-      );
+      headphone = Object.assign(this.specificBuilder.execute(this.report, this.knownHeadphone), headphone);
     }
 
     return headphone;

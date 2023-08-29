@@ -25,7 +25,7 @@ describe('Builder', () => {
     describe('when the known headphone has a specific builder available', () => {
       it('creates the specific builder', () => {
         new Builder([1, 2, 1, 2], 'path', {
-          productId: KnownHeadphone.Arctis7XProductID,
+          productId: KnownHeadphone.Arctis7X_ProductID,
         } as KnownHeadphone);
 
         expect(Arctis7xBuilder).toHaveBeenCalled();
@@ -39,13 +39,11 @@ describe('Builder', () => {
         const path = 'path';
         const report = [1, 2, 1, 2];
         const knownHeadphone = {
-          productId: KnownHeadphone.Arctis7XProductID,
+          productId: KnownHeadphone.Arctis7X_ProductID,
         } as KnownHeadphone;
         const builder = new Builder(report, path, knownHeadphone);
 
-        const spy = jest
-          .spyOn(Arctis7xBuilder.prototype, 'execute')
-          .mockReturnValue({} as SimpleHeadphone);
+        const spy = jest.spyOn(Arctis7xBuilder.prototype, 'execute').mockReturnValue({} as SimpleHeadphone);
 
         builder.execute();
 
@@ -56,7 +54,7 @@ describe('Builder', () => {
         const report = [1, 2, 1, 2];
         const path = undefined;
         const knownHeadphone = {
-          productId: KnownHeadphone.Arctis7XProductID,
+          productId: KnownHeadphone.Arctis7X_ProductID,
         } as KnownHeadphone;
         const builder = new Builder(report, path, knownHeadphone);
 
