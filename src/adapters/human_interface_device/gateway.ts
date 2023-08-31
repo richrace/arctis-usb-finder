@@ -3,6 +3,8 @@
 import { Device } from 'node-hid';
 import UsbGateway from '../../interfaces/usb_gateway';
 import UsbDevice from '../../interfaces/usb_device';
+import KnownHeadphone from '../../models/known_headphone';
+import Host from '../../utils/host';
 
 export default class HidUsbGateway implements UsbGateway {
   private usbProvider;
@@ -12,17 +14,60 @@ export default class HidUsbGateway implements UsbGateway {
     this.usbProvider = usbProvider;
     this.usbModel = usbModel;
 
-    this.usbProvider.setDriverType('libusb');
+    this.usbProvider.setDriverType('hidraw');
   }
 
   getUsbDevices(): UsbDevice[] {
     return this.usbProvider
       .devices()
-      .filter((device: Device) => device.usage !== 1)
+      .filter((device: Device) => {
+        if (Host.isMac()) {
+          return device.usage !== 1;
+        } else {
+          return true;
+        }
+      })
       .map((device: Device) => new this.usbModel(device));
   }
 
-  getHeadphoneByVendorIdAndProductId(vendorId: number, productId: number): UsbDevice {
-    return new this.usbModel(undefined, vendorId, productId);
+  getHeadphones(headphoneList: KnownHeadphone[]): UsbDevice[] {
+    const foundHeadphones = headphoneList
+      .map((headphone) => {
+        return this.getHeadphone(headphone);
+      })
+      .filter((h) => h !== undefined);
+
+    return foundHeadphones as UsbDevice[];
   }
- }
+
+  getHeadphone(knownHeadphone: KnownHeadphone): UsbDevice | undefined {
+    const device = this.usbProvider
+      .devices(KnownHeadphone.ArctisVendorID, knownHeadphone.productId)
+      .find((device: Device) => {
+        // macOS doesn't seem to use the interface
+        if (Host.isMac()) {
+          return true;
+        }
+
+        // Windows handles it different
+        if (Host.isWin()) {
+          // console.log('usage', device.usage, 'usagePage', device.usagePage);
+          if (device.usage === 0 || device.usagePage === 0) {
+            return (
+              knownHeadphone.usage === device.usage &&
+              knownHeadphone.usagePage === device.usagePage &&
+              knownHeadphone.interfaceNum === device.interface
+            );
+          }
+        }
+
+        return knownHeadphone.interfaceNum === device.interface;
+      });
+
+    if (device === undefined) {
+      return undefined;
+    }
+
+    return new this.usbModel(device, knownHeadphone);
+  }
+}

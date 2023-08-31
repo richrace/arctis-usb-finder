@@ -1,7 +1,10 @@
+import KnownHeadphone from '../models/known_headphone';
 import UsbDevice from './usb_device';
 
-export default interface UsbGateway {
+interface UsbGateway {
   getUsbDevices(): UsbDevice[];
-  getHeadphoneByVendorIdAndProductId(vendorId: number, productId: number): UsbDevice;
-  // eslint-disable-next-line semi
+  getHeadphones(headphoneList: KnownHeadphone[]): UsbDevice[];
+  getHeadphone(knownHeadphone: KnownHeadphone): UsbDevice | undefined;
 }
+
+export default UsbGateway;

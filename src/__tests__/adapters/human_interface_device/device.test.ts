@@ -1,7 +1,11 @@
 /* eslint-disable jest/no-mocks-import */
 import { Device } from 'node-hid';
+jest.mock('../../../utils/host');
+import Host from '../../../utils/host';
 import HidUsbDevice from '../../../adapters/human_interface_device/device';
+import HeadphoneList from '../../../headphone_list';
 import deviceFactory from '../../../__mocks__/device';
+import KnownHeadphone from '../../../models/known_headphone';
 
 class MockedHid {
   bytesWritten = false;
@@ -36,10 +40,64 @@ describe('HidUsbDevice', () => {
     mockedHidInstance = new MockedHid();
     hidSpy = jest.requireActual('node-hid');
     jest.spyOn(hidSpy, 'HID').mockReturnValue(mockedHidInstance);
+    const mockStaticMac = jest.fn().mockReturnValue(true);
+    const mockStaticWin = jest.fn().mockReturnValue(false);
+    Host.isMac = mockStaticMac;
+    Host.isWin = mockStaticWin;
   });
 
   afterEach(() => {
     jest.clearAllMocks();
+  });
+
+  describe('on Windows', () => {
+    beforeEach(() => {
+      const mockStaticMac = jest.fn().mockReturnValue(false);
+      const mockStaticWin = jest.fn().mockReturnValue(true);
+      Host.isMac = mockStaticMac;
+      Host.isWin = mockStaticWin;
+    });
+
+    it('will avoid macOS specific logic', () => {
+      const path = 'IOService:/AppleACPIPl...HIDDevice@14210000,0';
+      const device: Device = deviceFactory(path);
+      const knownHeadphone = HeadphoneList.find((h) => h.productId === KnownHeadphone.Arctis7X_ProductID);
+
+      const usbDevice = new HidUsbDevice(device, knownHeadphone);
+
+      expect(usbDevice.knownHeadphone).toEqual(knownHeadphone);
+    });
+  });
+
+  describe('with a KnownHeadphone', () => {
+    it('matches', () => {
+      const path = 'IOService:/AppleACPIPl...HIDDevice@14210000,0';
+      const device: Device = deviceFactory(path);
+      const knownHeadphone = HeadphoneList.find((h) => h.productId === KnownHeadphone.Arctis7X_ProductID);
+
+      const usbDevice = new HidUsbDevice(device, knownHeadphone);
+
+      expect(usbDevice.knownHeadphone).toEqual(knownHeadphone);
+    });
+
+    it('will fetch with the correct bytes', () => {
+      const path = 'IOService:/AppleACPIPl...HIDDevice@14210000,0';
+      const device: Device = deviceFactory(path);
+      const knownHeadphone = HeadphoneList.find((h) => h.productId === KnownHeadphone.Arctis7X_ProductID);
+
+      const usbDevice = new HidUsbDevice(device, knownHeadphone);
+
+      expect(usbDevice.fetchInfo()).toEqual([0, 1, 0, 1, 3]);
+    });
+
+    it("won't fetch with the missing bytes", () => {
+      const path = 'IOService:/AppleACPIPl...HIDDevice@14210000,0';
+      const device: Device = deviceFactory(path);
+      const knownHeadphone = new KnownHeadphone('Name', KnownHeadphone.Arctis7X_ProductID, [], 1, 2, 3, 4);
+      const usbDevice = new HidUsbDevice(device, knownHeadphone);
+
+      expect(usbDevice.fetchInfo()).toEqual([]);
+    });
   });
 
   describe('when path is present', () => {

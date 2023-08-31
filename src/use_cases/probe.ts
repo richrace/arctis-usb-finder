@@ -27,7 +27,10 @@ export default class Probe {
       console.log('Testing', device.realDevice().product);
 
       knownBytes.some((byteArray) => {
-        const report = device.fetchInfo(byteArray);
+        console.log('\tTesting', byteArray);
+        let report: number[] = [];
+
+        report = device.fetchInfo(byteArray);
 
         if (report.length > 0) {
           matchedBytes = byteArray;

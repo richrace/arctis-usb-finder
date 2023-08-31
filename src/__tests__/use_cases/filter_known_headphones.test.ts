@@ -19,6 +19,9 @@ describe('FilterKnownHeadphones', () => {
         productId: 4823,
         vendorId: 4152,
         writeBytes: [6, 18],
+        interfaceNum: 3,
+        usage: 514,
+        usagePage: 65347,
       };
     });
 
@@ -27,9 +30,9 @@ describe('FilterKnownHeadphones', () => {
     });
 
     it('will find headphone with Vendor ID and Product ID', () => {
-      expect(
-        useCase.execute([{ path: 'test', productId: 4823, vendorId: 4152 }] as SimpleHeadphone[])
-      ).toEqual([{ ...knownHeadphone, path: 'test' }]);
+      expect(useCase.execute([{ path: 'test', productId: 4823, vendorId: 4152 }] as SimpleHeadphone[])).toEqual([
+        { ...knownHeadphone, path: 'test' },
+      ]);
     });
 
     it(`will reject paths that don't have a matching name`, () => {
@@ -37,9 +40,7 @@ describe('FilterKnownHeadphones', () => {
     });
 
     it('will return a matched headphone by path', () => {
-      expect(useCase.execute([{ path: 'Made up Arctis 7X@' }] as SimpleHeadphone[])).toEqual([
-        knownHeadphone,
-      ]);
+      expect(useCase.execute([{ path: 'Made up Arctis 7X@' }] as SimpleHeadphone[])).toEqual([knownHeadphone]);
     });
 
     it('will return a matched headphone by a real path', () => {

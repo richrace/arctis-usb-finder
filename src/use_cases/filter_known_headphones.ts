@@ -7,10 +7,7 @@ export default class FilterKnownHeadphones implements Interfaces.SimpleHeadphone
   execute(rawHeadphones: SimpleHeadphone[]): KnownHeadphone[] {
     return rawHeadphones.reduce((knownHeadphones: KnownHeadphone[], rawHeadphone) => {
       KnownHeadphones.filter((known) => {
-        if (
-          known.vendorId === rawHeadphone.vendorId &&
-          known.productId === rawHeadphone.productId
-        ) {
+        if (known.vendorId === rawHeadphone.vendorId && known.productId === rawHeadphone.productId) {
           known.path = rawHeadphone.path;
           knownHeadphones.push(known);
 

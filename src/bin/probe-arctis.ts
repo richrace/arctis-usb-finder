@@ -53,12 +53,8 @@ function probe() {
   console.log(' ');
 
   if (foundHeadphones.length > 0) {
-    console.log(
-      'Use can use the following information to create a develop your own solution and create a PR.'
-    );
-    console.log(
-      'Or please copy / paste the following information and create an issue on the GitHub repo.'
-    );
+    console.log('Use can use the following information to create a develop your own solution and create a PR.');
+    console.log('Or please copy / paste the following information and create an issue on the GitHub repo.');
     console.log('Go to: https://github.com/richrace/arctis-usb-finder/');
     console.log('You can look for values changing when press mute/changing chat mixer/charging');
     console.log(' ');
@@ -71,7 +67,6 @@ function probe() {
       console.log('Product ID:', result.device.productId);
       console.log('Bytes:', result.matchedBytes);
       console.log('Report:', result.matchedReport);
-      console.log('Path:', result.device.path());
       console.log(' ');
     });
   }

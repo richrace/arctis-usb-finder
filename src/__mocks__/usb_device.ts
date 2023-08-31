@@ -1,14 +1,19 @@
 import { Device } from 'node-hid';
 import UsbDevice from '../interfaces/usb_device';
+import KnownHeadphone from '../models/known_headphone';
 
 export default class MockUsbDevice implements UsbDevice {
   bytesWritten = false;
-  vendorId;
-  productId;
+  vendorId: number;
+  productId: number;
+  productName: string;
+  knownHeadphone: KnownHeadphone | undefined;
 
-  constructor(private rawDevice: Device, vendorId?: number, productId?: number) {
-    this.vendorId = vendorId || rawDevice.vendorId;
-    this.productId = productId || rawDevice.productId;
+  constructor(private rawDevice: Device, knownHeadphone?: KnownHeadphone) {
+    this.vendorId = rawDevice.vendorId;
+    this.productId = rawDevice.productId;
+    this.productName = `${rawDevice.product}`;
+    this.knownHeadphone = knownHeadphone;
   }
 
   fetchInfo(bytes: number[]): number[] {
@@ -38,7 +43,7 @@ export default class MockUsbDevice implements UsbDevice {
   }
 
   path(): string | undefined {
-    return "Path ";
+    return 'Path ';
   }
 
   close(): void {

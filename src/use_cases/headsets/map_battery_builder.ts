@@ -1,14 +1,13 @@
 import KnownHeadphone from '../../models/known_headphone';
 import SimpleHeadphone from '../../interfaces/simple_headphone';
 import SpecificBuilder from '../../interfaces/specific_builder';
+import map from '../../utils/map';
 
-export default class Arctis7xBuilder implements SpecificBuilder {
+export default class MapBatteryBuilder implements SpecificBuilder {
   execute(report: number[], knownHeadphone: KnownHeadphone): SimpleHeadphone {
-    let isMuted, isCharging, isDischarging, isConnected;
+    let isCharging, isDischarging, isConnected;
 
-    if (knownHeadphone.micStatusIdx) {
-      isMuted = report[knownHeadphone.micStatusIdx] === 1;
-    }
+    const batteryPercent = this.calculateBattery(report[knownHeadphone.batteryPercentIdx]);
 
     if (knownHeadphone.chargingStatusIdx) {
       switch (report[knownHeadphone.chargingStatusIdx]) {
@@ -30,6 +29,17 @@ export default class Arctis7xBuilder implements SpecificBuilder {
       }
     }
 
-    return { isMuted, isCharging, isDischarging, isConnected } as SimpleHeadphone;
+    return { batteryPercent, isCharging, isDischarging, isConnected } as SimpleHeadphone;
+  }
+
+  private calculateBattery(batteryPercent: number): number {
+    const maxBattery = 0x04;
+    const minBattery = 0x00;
+
+    if (batteryPercent > maxBattery) {
+      return 100;
+    }
+
+    return map(batteryPercent, minBattery, maxBattery, 0, 100);
   }
 }

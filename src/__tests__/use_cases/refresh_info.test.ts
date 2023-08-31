@@ -17,7 +17,11 @@ class MockedGateway implements UsbGateway {
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  getHeadphoneByVendorIdAndProductId(_vendorId: number, _productId: number): UsbDevice {
+  getHeadphones(_headphoneList: KnownHeadphone[]): UsbDevice[] {
+    return [] as UsbDevice[];
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  getHeadphone(_knownHeadphone: KnownHeadphone): UsbDevice | undefined {
     return {} as UsbDevice;
   }
 }
@@ -55,13 +59,11 @@ describe('RefreshInfo', () => {
     });
 
     it('will return a SimpleHeadphone object', () => {
-      const found: UsbDevice = new MockUsbDevice(
-        deviceFactory('path/of/something', bytes[0], bytes[1])
-      );
-      const knownHeadphone = new KnownHeadphone('Name', 0x12d7, 3, bytes);
+      const found: UsbDevice = new MockUsbDevice(deviceFactory('path/of/something', bytes[0], bytes[1]));
+      const knownHeadphone = new KnownHeadphone('Name', 0x12d7, bytes, 3, 1, 1, 3);
       knownHeadphones = [knownHeadphone];
 
-      jest.spyOn(gateway, 'getHeadphoneByVendorIdAndProductId').mockReturnValue(found);
+      jest.spyOn(gateway, 'getHeadphone').mockReturnValue(found);
       jest.spyOn(found, 'fetchInfo');
 
       useCase.execute(exampleHeadphones);
@@ -70,13 +72,11 @@ describe('RefreshInfo', () => {
     });
 
     it('will not return a SimpleHeadphone object if the report is empty', () => {
-      const found: UsbDevice = new MockUsbDevice(
-        deviceFactory('path/of/something', bytes[0], bytes[1])
-      );
-      const knownHeadphone = new KnownHeadphone('Name', 0x12d7, 3, [0x45, 0x43]);
+      const found: UsbDevice = new MockUsbDevice(deviceFactory('path/of/something', bytes[0], bytes[1]));
+      const knownHeadphone = new KnownHeadphone('Name', 0x12d7, [0x45, 0x43], 3, 3, 3, 3);
       knownHeadphones = [knownHeadphone];
 
-      jest.spyOn(gateway, 'getHeadphoneByVendorIdAndProductId').mockReturnValue(found);
+      jest.spyOn(gateway, 'getHeadphone').mockReturnValue(found);
       jest.spyOn(found, 'fetchInfo');
 
       useCase.execute(exampleHeadphones);
@@ -85,10 +85,9 @@ describe('RefreshInfo', () => {
     });
 
     it('will not return a SimpleHeadphone object if it has not matched', () => {
-      const knownHeadphone = new KnownHeadphone('Name', 0x12, 3, [0x45, 0x43]);
-      knownHeadphones = [knownHeadphone];
+      knownHeadphones = [];
 
-      jest.spyOn(gateway, 'getHeadphoneByVendorIdAndProductId').mockReturnValue({} as UsbDevice);
+      jest.spyOn(gateway, 'getHeadphone').mockReturnValue({} as UsbDevice);
 
       expect(useCase.execute(exampleHeadphones)).toHaveLength(0);
     });

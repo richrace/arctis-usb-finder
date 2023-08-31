@@ -1,9 +1,14 @@
-export default interface UsbDevice {
+import KnownHeadphone from '../models/known_headphone';
+
+interface UsbDevice {
   productId: number;
   vendorId: number;
-  fetchInfo(bytes: number[]): number[];
+  productName: string;
+  knownHeadphone: KnownHeadphone | undefined;
+  fetchInfo(byteArray?: number[]): number[];
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   realDevice(): any;
   path(): string | undefined;
-  // eslint-disable-next-line semi
 }
+
+export default UsbDevice;
