@@ -17,12 +17,6 @@ class MockedGateway implements UsbGateway {
   }
 }
 
-class MockedFindUseCase {
-  execute(): UsbDevice[] {
-    return [];
-  }
-}
-
 let simpleHeadphones: SimpleHeadphone[] = [];
 
 class MockedRefreshInfoUseCase {
