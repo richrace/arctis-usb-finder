@@ -1,9 +1,9 @@
-import HID from 'node-hid';
-
 interface ProbeResult {
-  device: HID.Device;
+  deviceProductName: string;
+  deviceProductId: number;
   matchedBytes: number[] | undefined;
   matchedReport: number[] | undefined;
+  devicePath: string | undefined;
 }
 
 export default ProbeResult;

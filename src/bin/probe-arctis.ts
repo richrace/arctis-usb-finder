@@ -64,11 +64,11 @@ function probe() {
     console.log(' ');
 
     foundHeadphones.forEach((result: ProbeResult) => {
-      console.log('Product:', result.device.product);
-      console.log('Product ID:', result.device.productId);
+      console.log('Product:', result.deviceProductName);
+      console.log('Product ID:', result.deviceProductId);
       console.log('Bytes:', result.matchedBytes);
       console.log('Report:', result.matchedReport);
-      console.log('Device:', result.device);
+      console.log('Path:', result.devicePath);
       console.log(' ');
     });
   }

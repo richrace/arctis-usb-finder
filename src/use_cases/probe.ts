@@ -1,10 +1,10 @@
-import HID from 'node-hid';
+import HID, { Device } from 'node-hid';
 
 import ProbeResult from '../interfaces/probe_result';
 import Host from '../utils/host';
 
 export default class Probe {
-  readonly devices: HID.Device[];
+  readonly devices: Device[];
 
   constructor() {
     this.devices = HID.devices().filter((d) => d.vendorId === 4152);
@@ -29,20 +29,38 @@ export default class Probe {
       if (Host.isWin()) {
         if (devicePath === undefined) {
           console.log("\tCouldn't connect");
-          return { matchedReport: undefined } as ProbeResult;
+          return {
+            deviceProductName: device.product,
+            deviceProductId: device.productId,
+            matchedBytes: undefined,
+            matchedReport: undefined,
+            devicePath,
+          } as ProbeResult;
         }
         try {
           hidDevice = new HID.HID(devicePath);
         } catch {
           console.log("\tCouldn't connect");
-          return { matchedReport: undefined } as ProbeResult;
+          return {
+            deviceProductName: device.product,
+            deviceProductId: device.productId,
+            matchedBytes: undefined,
+            matchedReport: undefined,
+            devicePath,
+          } as ProbeResult;
         }
       } else {
         try {
           hidDevice = new HID.HID(device.vendorId, device.productId);
         } catch {
           console.log("\tCouldn't connect");
-          return { matchedReport: undefined } as ProbeResult;
+          return {
+            deviceProductName: device.product,
+            deviceProductId: device.productId,
+            matchedBytes: undefined,
+            matchedReport: undefined,
+            devicePath,
+          } as ProbeResult;
         }
       }
 
@@ -69,9 +87,11 @@ export default class Probe {
       });
 
       return {
-        device,
+        deviceProductName: device.product,
+        deviceProductId: device.productId,
         matchedBytes,
         matchedReport,
+        devicePath,
       } as ProbeResult;
     });
 

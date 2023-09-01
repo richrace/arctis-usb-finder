@@ -6,7 +6,7 @@ import SimpleHeadphone from './interfaces/simple_headphone';
 import BuildSimpleHeadphones from './use_cases/build_simple_headphones';
 import report from './use_cases/report';
 
-export default class ArctisUsbFinder {
+class ArctisUsbFinder {
   devices: DeviceToHeadphone[] = [];
 
   simpleHeadphones(): SimpleHeadphone[] {
@@ -60,3 +60,5 @@ export default class ArctisUsbFinder {
     return this.devices;
   }
 }
+
+export default ArctisUsbFinder;

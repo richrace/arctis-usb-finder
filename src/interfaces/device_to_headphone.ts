@@ -1,9 +1,9 @@
-import HID from 'node-hid';
+import { Device } from 'node-hid';
 
 import KnownHeadphone from '../models/known_headphone';
 
 interface DeviceToHeadphone {
-  hidDevice: HID.Device;
+  hidDevice: Device;
   headphone: KnownHeadphone | undefined;
   report: number[] | undefined;
 }
