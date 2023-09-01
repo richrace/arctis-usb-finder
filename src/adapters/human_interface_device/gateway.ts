@@ -5,6 +5,7 @@ import UsbGateway from '../../interfaces/usb_gateway';
 import UsbDevice from '../../interfaces/usb_device';
 import KnownHeadphone from '../../models/known_headphone';
 import Host from '../../utils/host';
+import HeadphoneList from '../../headphone_list';
 
 export default class HidUsbGateway implements UsbGateway {
   private usbProvider;
@@ -27,15 +28,18 @@ export default class HidUsbGateway implements UsbGateway {
           return true;
         }
       })
-      .map((device: Device) => new this.usbModel(device));
+      .map((device: Device) => {
+        const foundHeadphone = HeadphoneList.find((headphone) => {
+          return headphone.vendorId === device.vendorId && headphone.productId === device.productId;
+        });
+        return new this.usbModel(device, foundHeadphone);
+      });
   }
 
-  getHeadphones(headphoneList: KnownHeadphone[]): UsbDevice[] {
-    const foundHeadphones = headphoneList
-      .map((headphone) => {
-        return this.getHeadphone(headphone);
-      })
-      .filter((h) => h !== undefined);
+  getHeadphones(): UsbDevice[] {
+    const foundHeadphones = HeadphoneList.map((headphone) => {
+      return this.getHeadphone(headphone);
+    }).filter((h) => h !== undefined);
 
     return foundHeadphones as UsbDevice[];
   }

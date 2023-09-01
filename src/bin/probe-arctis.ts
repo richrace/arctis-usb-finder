@@ -67,6 +67,7 @@ function probe() {
       console.log('Product ID:', result.device.productId);
       console.log('Bytes:', result.matchedBytes);
       console.log('Report:', result.matchedReport);
+      console.log('Device:', result.device);
       console.log(' ');
     });
   }

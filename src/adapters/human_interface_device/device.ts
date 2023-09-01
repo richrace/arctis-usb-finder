@@ -83,7 +83,11 @@ export default class HidUsbDevice implements UsbDevice {
 
   private write(bytes: number[]): void {
     if (this.hidDevice) {
-      this.hidDevice.write(bytes);
+      try {
+        this.hidDevice.write(bytes);
+      } catch {
+        // skip
+      }
     }
   }
 

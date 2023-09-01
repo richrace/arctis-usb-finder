@@ -14,7 +14,7 @@ export default class Probe {
   }
 
   testUnknownHeadset(headsets: UsbDevice[]): ProbeResult[] {
-    return headsets.map((device: UsbDevice) => {
+    const foundHeadphones = headsets.map((device: UsbDevice) => {
       const knownBytes = [
         [0x0, 0x20],
         [0x06, 0x12],
@@ -46,6 +46,14 @@ export default class Probe {
         matchedBytes,
         matchedReport,
       } as ProbeResult;
+    });
+
+    return foundHeadphones.filter((result: ProbeResult) => {
+      if (result.matchedReport === undefined) {
+        return false;
+      }
+
+      return result.matchedReport.length > 0;
     });
   }
 
