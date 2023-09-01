@@ -1,7 +1,8 @@
-import KnownHeadphone from '../models/known_headphone';
 import SimpleHeadphone from './simple_headphone';
+import KnownHeadphone from '../models/known_headphone';
 
-export default interface SpecificBuilder {
+interface SpecificBuilder {
   execute(report: number[], knownHeadphone: KnownHeadphone): SimpleHeadphone;
-  // eslint-disable-next-line semi
 }
+
+export default SpecificBuilder;

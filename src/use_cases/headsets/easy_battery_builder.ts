@@ -1,6 +1,6 @@
-import KnownHeadphone from '../../models/known_headphone';
 import SimpleHeadphone from '../../interfaces/simple_headphone';
 import SpecificBuilder from '../../interfaces/specific_builder';
+import KnownHeadphone from '../../models/known_headphone';
 
 export default class EasyBatteryBuilder implements SpecificBuilder {
   execute(report: number[], knownHeadphone: KnownHeadphone): SimpleHeadphone {

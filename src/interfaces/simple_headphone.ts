@@ -8,6 +8,9 @@ interface SimpleHeadphone {
   isCharging: boolean | undefined;
   isDischarging: boolean | undefined;
   path: string | undefined;
+  interfaceNum: number;
+  usagePage: number;
+  usage: number;
 }
 
 export default SimpleHeadphone;

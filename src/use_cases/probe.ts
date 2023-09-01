@@ -1,7 +1,7 @@
 import HID from 'node-hid';
 
-import Host from '../utils/host';
 import ProbeResult from '../interfaces/probe_result';
+import Host from '../utils/host';
 
 export default class Probe {
   readonly devices: HID.Device[];

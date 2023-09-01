@@ -1,6 +1,6 @@
-import KnownHeadphone from '../../models/known_headphone';
-import SimpleHeadphone from '../../interfaces/simple_headphone';
 import SpecificBuilder from '../../interfaces/specific_builder';
+import SimpleHeadphone from '../../interfaces/simple_headphone';
+import KnownHeadphone from '../../models/known_headphone';
 import map from '../../utils/map';
 
 export default class MapBatteryBuilder implements SpecificBuilder {
