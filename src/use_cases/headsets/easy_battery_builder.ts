@@ -1,10 +1,12 @@
-import KnownHeadphone from '../../models/known_headphone';
 import SimpleHeadphone from '../../interfaces/simple_headphone';
 import SpecificBuilder from '../../interfaces/specific_builder';
+import KnownHeadphone from '../../models/known_headphone';
 
-export default class Arctis7xBuilder implements SpecificBuilder {
+export default class EasyBatteryBuilder implements SpecificBuilder {
   execute(report: number[], knownHeadphone: KnownHeadphone): SimpleHeadphone {
     let isMuted, isCharging, isDischarging, isConnected;
+
+    const batteryPercent = report[knownHeadphone.batteryPercentIdx];
 
     if (knownHeadphone.micStatusIdx) {
       isMuted = report[knownHeadphone.micStatusIdx] === 1;
@@ -30,6 +32,6 @@ export default class Arctis7xBuilder implements SpecificBuilder {
       }
     }
 
-    return { isMuted, isCharging, isDischarging, isConnected } as SimpleHeadphone;
+    return { batteryPercent, isMuted, isCharging, isDischarging, isConnected } as SimpleHeadphone;
   }
 }

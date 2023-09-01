@@ -1,5 +1,5 @@
-export default interface SimpleHeadphone {
-  batteryPercent: number;
+interface SimpleHeadphone {
+  batteryPercent: number | undefined;
   modelName: string;
   vendorId: number;
   productId: number;
@@ -8,6 +8,9 @@ export default interface SimpleHeadphone {
   isCharging: boolean | undefined;
   isDischarging: boolean | undefined;
   path: string | undefined;
-
-  // eslint-disable-next-line semi
+  interfaceNum: number;
+  usagePage: number;
+  usage: number;
 }
+
+export default SimpleHeadphone;

@@ -1,9 +1,9 @@
-import UsbDevice from './usb_device';
-
 interface ProbeResult {
-  device: UsbDevice;
+  deviceProductName: string;
+  deviceProductId: number;
   matchedBytes: number[] | undefined;
   matchedReport: number[] | undefined;
+  devicePath: string | undefined;
 }
 
 export default ProbeResult;

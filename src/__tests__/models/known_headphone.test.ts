@@ -5,8 +5,11 @@ describe('KnownHeadphone', () => {
   const name = 'Test Name';
   const vendorId = 4125;
   const productId = 0x12ad;
-  const batteryPercentIdx = 1;
   const writeBytes = [0x12, 0x45];
+  const usagePage = 1;
+  const usage = 1;
+  const interfaceNum = 1;
+  const batteryPercentIdx = 1;
   const chargingStatusIdx = 1;
   const micStatusIdx = 1;
   const path =
@@ -18,8 +21,11 @@ describe('KnownHeadphone', () => {
     headphone = new KnownHeadphone(
       name,
       productId,
-      batteryPercentIdx,
       writeBytes,
+      usagePage,
+      usage,
+      interfaceNum,
+      batteryPercentIdx,
       chargingStatusIdx,
       micStatusIdx,
       path,

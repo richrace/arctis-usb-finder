@@ -1,24 +1,64 @@
 import HID from 'node-hid';
-import FindHeadphones from './use_cases/find_headphones';
-import HidGateway from './adapters/human_interface_device/gateway';
-import HidDevice from './adapters/human_interface_device/device';
-import BuildSimpleHeadphones from './use_cases/build_simple_headphones';
-import RefreshInfo from './use_cases/refresh_info';
+
+import HeadphoneList from './headphone_list';
+import DeviceToHeadphone from './interfaces/device_to_headphone';
 import SimpleHeadphone from './interfaces/simple_headphone';
-import FilterKnownHeadphones from './use_cases/filter_known_headphones';
+import BuildSimpleHeadphones from './use_cases/build_simple_headphones';
+import report from './use_cases/report';
 
-export function getHeadphones(): SimpleHeadphone[] {
-  const gateway = new HidGateway(HID, HidDevice);
-  const findHeadphonesUseCase = new FindHeadphones(gateway);
-  const buildUseCase = new BuildSimpleHeadphones();
+class ArctisUsbFinder {
+  devices: DeviceToHeadphone[] = [];
 
-  return buildUseCase.execute(findHeadphonesUseCase.execute());
+  simpleHeadphones(): SimpleHeadphone[] {
+    const simpleBuilder = new BuildSimpleHeadphones();
+
+    return simpleBuilder.execute(this.devices);
+  }
+
+  loadHeadphones() {
+    this.findHeadphones();
+    this.devices.map(report);
+  }
+
+  refreshHeadphones() {
+    this.devices.map(report);
+  }
+
+  private findHeadphones() {
+    const hidDevices = HID.devices();
+
+    this.devices = hidDevices
+      .map((hidDevice): DeviceToHeadphone => {
+        return {
+          hidDevice,
+          report: [],
+          headphone: HeadphoneList.find((headphone) => {
+            const result = hidDevice.vendorId === headphone.vendorId && hidDevice.productId === headphone.productId;
+
+            if (result === false) return false;
+
+            if (headphone.usagePage !== 0 && headphone.usage !== 0) {
+              return (
+                hidDevice.usagePage === headphone.usagePage &&
+                hidDevice.usage === headphone.usage &&
+                hidDevice.interface === headphone.interfaceNum
+              );
+            }
+
+            return hidDevice.interface === headphone.interfaceNum;
+          }),
+        };
+      })
+      .filter((hash) => {
+        if (hash.headphone) {
+          hash.headphone.path = hash.hidDevice.path;
+
+          return true;
+        }
+      });
+
+    return this.devices;
+  }
 }
 
-export function refreshHeadphones(simpleHeadphones: SimpleHeadphone[]): SimpleHeadphone[] {
-  const gateway = new HidGateway(HID, HidDevice);
-  const filterToKnownHeadphones = new FilterKnownHeadphones();
-  const useCase = new RefreshInfo(gateway, filterToKnownHeadphones);
-
-  return useCase.execute(simpleHeadphones);
-}
+export default ArctisUsbFinder;

@@ -1,42 +1,66 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-import KnownHeadphone from '../../models/known_headphone';
+import DeviceToHeadphone from '../../interfaces/device_to_headphone';
 import SimpleHeadphone from '../../interfaces/simple_headphone';
 import SpecificBuilder from '../../interfaces/specific_builder';
-import Arctis7xBuilder from './7x_builder';
+import KnownHeadphone from '../../models/known_headphone';
+import EasyBatteryBuilder from './easy_battery_builder';
+import MapBatteryBuilder from './map_battery_builder';
 
 export default class Builder {
   private specificBuilder: SpecificBuilder | undefined;
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  static build(report: number[], path: any, knownHeadphone: KnownHeadphone): SimpleHeadphone {
-    const builder = new Builder(report, path, knownHeadphone);
+  static build(deviceHash: DeviceToHeadphone): SimpleHeadphone {
+    const builder = new Builder(deviceHash);
     const simpleHeadphone = builder.execute();
 
     return simpleHeadphone;
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  constructor(private report: number[], private path: any, private knownHeadphone: KnownHeadphone) {
-    switch (this.knownHeadphone.productId) {
+  constructor(private deviceHash: DeviceToHeadphone) {
+    const knownHeadphone = deviceHash.headphone as KnownHeadphone;
+
+    switch (knownHeadphone.productId) {
       case KnownHeadphone.Arctis7X_ProductID:
-        this.specificBuilder = new Arctis7xBuilder();
+      case KnownHeadphone.Arctis1W_ProductID:
+      case KnownHeadphone.Arctis1X_ProductID:
+        this.specificBuilder = new EasyBatteryBuilder();
+        break;
+      case KnownHeadphone.Arctis7P_Plus_ProductID:
+      case KnownHeadphone.Arctis7X_Plus_ProductID:
+      case KnownHeadphone.Arctis7_Plus_Destiny_ProductID:
+      case KnownHeadphone.Arctis7_Plus_ProductID:
+      case KnownHeadphone.ArctisNova7_ProductID:
+      case KnownHeadphone.ArctisNova7X_ProductID:
+      case KnownHeadphone.ArctisNova7P_ProductID:
+      case KnownHeadphone.Arctis9_ProductID:
+      case KnownHeadphone.ArctisPro_Wirelress_ProductID:
+        this.specificBuilder = new MapBatteryBuilder();
         break;
     }
   }
 
   execute(): SimpleHeadphone {
-    let headphone = {
-      modelName: this.knownHeadphone.name,
-      vendorId: this.knownHeadphone.vendorId,
-      productId: this.knownHeadphone.productId,
-      batteryPercent: this.report[this.knownHeadphone.batteryPercentIdx],
-      path: this.path,
+    const { hidDevice } = this.deviceHash;
+    const report = this.deviceHash.report as number[];
+    const headphone = this.deviceHash.headphone as KnownHeadphone;
+
+    let simpleHeadphone = {
+      modelName: headphone.name,
+      vendorId: headphone.vendorId,
+      productId: headphone.productId,
+      path: headphone.path,
+      interfaceNum: hidDevice.interface,
+      usagePage: hidDevice.usagePage,
+      usage: hidDevice.usage,
     } as SimpleHeadphone;
 
     if (this.specificBuilder) {
-      headphone = Object.assign(this.specificBuilder.execute(this.report, this.knownHeadphone), headphone);
+      simpleHeadphone = Object.assign(this.specificBuilder.execute(report, headphone), simpleHeadphone);
     }
 
-    return headphone;
+    if (simpleHeadphone.batteryPercent === undefined) {
+      simpleHeadphone.batteryPercent = report[headphone.batteryPercentIdx];
+    }
+
+    return simpleHeadphone;
   }
 }

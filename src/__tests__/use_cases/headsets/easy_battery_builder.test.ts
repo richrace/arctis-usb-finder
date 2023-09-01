@@ -1,8 +1,8 @@
 import KnownHeadphone from '../../../models/known_headphone';
-import Arctis7xBuilder from '../../../use_cases/headsets/7x_builder';
+import EasyBatteryBuilder from '../../../use_cases/headsets/easy_battery_builder';
 
-describe('Arctis7xBuilder', () => {
-  const builder = new Arctis7xBuilder();
+describe('EasyBatteryBuilder', () => {
+  const builder = new EasyBatteryBuilder();
   let chargingStatusIdx: number | undefined = 4;
   let micStatusIdx: number | undefined = 5;
   let knownHeadphone = { chargingStatusIdx, micStatusIdx } as KnownHeadphone;

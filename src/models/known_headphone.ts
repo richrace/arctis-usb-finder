@@ -1,7 +1,7 @@
 export default class KnownHeadphone {
   static ArctisVendorID = 4152;
 
-  static ArctisPro_Wirelress = 0x1290;
+  static ArctisPro_Wirelress_ProductID = 0x1290;
   static Arctis7_2017_ProductID = 0x1260;
   static Arctis7_2019_ProductID = 0x12ad;
   static ArctisPro_2019_ProductID = 0x1252;
@@ -25,8 +25,11 @@ export default class KnownHeadphone {
   constructor(
     readonly name: string,
     readonly productId: number,
-    readonly batteryPercentIdx: number,
     readonly writeBytes: number[],
+    readonly usagePage: number,
+    readonly usage: number,
+    readonly interfaceNum: number,
+    readonly batteryPercentIdx: number,
     readonly chargingStatusIdx?: number,
     readonly micStatusIdx?: number,
     public path?: string,

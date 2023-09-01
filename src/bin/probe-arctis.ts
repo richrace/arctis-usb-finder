@@ -1,8 +1,9 @@
 #!/usr/bin/env node
-
+import HID from 'node-hid';
 import * as readline from 'readline';
 
-import UsbDevice from '../interfaces/usb_device';
+// import UsbDevice from '../interfaces/usb_device';
+
 import Probe from '../use_cases/probe';
 import ProbeResult from '../interfaces/probe_result';
 
@@ -28,7 +29,7 @@ function probe() {
 
   const probe = new Probe();
 
-  const steelseriesHeadsets = probe.steelseriesHeadsets();
+  const steelseriesHeadsets: HID.Device[] = probe.devices;
 
   if (steelseriesHeadsets.length < 0) {
     console.log("Didn't find any SteelSeries Headset");
@@ -39,13 +40,13 @@ function probe() {
   console.log(' ');
   console.log('Found SteelSeries USB devices:');
   console.log(' ');
-  steelseriesHeadsets.forEach((device: UsbDevice) => console.log(device.realDevice().product));
+  steelseriesHeadsets.forEach((device: HID.Device) => console.log(device.product));
   console.log(' ');
   console.log(' ');
   console.log('About to Probe...');
   console.log(' ');
 
-  const foundHeadphones = probe.testUnknownHeadset(steelseriesHeadsets);
+  const foundHeadphones = probe.testUnknownHeadset();
 
   console.log(' ');
   console.log('**** Finished Probing ****');
@@ -53,12 +54,8 @@ function probe() {
   console.log(' ');
 
   if (foundHeadphones.length > 0) {
-    console.log(
-      'Use can use the following information to create a develop your own solution and create a PR.'
-    );
-    console.log(
-      'Or please copy / paste the following information and create an issue on the GitHub repo.'
-    );
+    console.log('Use can use the following information to create a develop your own solution and create a PR.');
+    console.log('Or please copy / paste the following information and create an issue on the GitHub repo.');
     console.log('Go to: https://github.com/richrace/arctis-usb-finder/');
     console.log('You can look for values changing when press mute/changing chat mixer/charging');
     console.log(' ');
@@ -67,11 +64,11 @@ function probe() {
     console.log(' ');
 
     foundHeadphones.forEach((result: ProbeResult) => {
-      console.log('Product:', result.device.realDevice().product);
-      console.log('Product ID:', result.device.productId);
+      console.log('Product:', result.deviceProductName);
+      console.log('Product ID:', result.deviceProductId);
       console.log('Bytes:', result.matchedBytes);
       console.log('Report:', result.matchedReport);
-      console.log('Path:', result.device.path());
+      console.log('Path:', result.devicePath);
       console.log(' ');
     });
   }

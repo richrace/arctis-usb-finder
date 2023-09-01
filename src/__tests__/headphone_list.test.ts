@@ -7,13 +7,8 @@ describe('HeadphoneList', () => {
   });
 
   describe('the first element', () => {
-    let firstElement: KnownHeadphone;
-
-    beforeEach(() => {
-      firstElement = HeadphoneList[0];
-    });
-
     it('contains a name', () => {
+      const firstElement = HeadphoneList[0] as KnownHeadphone;
       expect(firstElement.name).toBe('Arctis Pro Wireless');
     });
   });
