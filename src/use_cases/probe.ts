@@ -1,43 +1,70 @@
 import HID from 'node-hid';
-import UsbDevice from '../interfaces/usb_device';
-import KnownHeadphone from '../models/known_headphone';
-import HidGateway from '../adapters/human_interface_device/gateway';
-import HidDevice from '../adapters/human_interface_device/device';
+
+import Host from '../utils/host';
 import ProbeResult from '../interfaces/probe_result';
 
 export default class Probe {
-  private devices;
+  readonly devices: HID.Device[];
 
   constructor() {
-    const gateway = new HidGateway(HID, HidDevice);
-    this.devices = gateway.getUsbDevices();
+    this.devices = HID.devices().filter((d) => d.vendorId === 4152);
   }
 
-  testUnknownHeadset(headsets: UsbDevice[]): ProbeResult[] {
-    const foundHeadphones = headsets.map((device: UsbDevice) => {
-      const knownBytes = [
-        [0x0, 0x20],
-        [0x06, 0x12],
-        [0x06, 0x18],
-        [0x40, 0xaa],
-        [0x00, 0xb0],
-      ];
-      let matchedReport, matchedBytes;
+  testUnknownHeadset() {
+    const knownBytes = [
+      [0x0, 0x20],
+      [0x06, 0x12],
+      [0x06, 0x18],
+      [0x40, 0xaa],
+      [0x00, 0xb0],
+    ];
 
-      console.log('Testing', device.realDevice().product);
+    const foundHeadphones = this.devices.map((device) => {
+      console.log('Probing', device.product);
 
-      knownBytes.some((byteArray) => {
-        console.log('\tTesting', byteArray);
-        let report: number[] = [];
+      const devicePath = device.path;
 
-        report = device.fetchInfo(byteArray);
+      let hidDevice: HID.HID;
 
-        if (report.length > 0) {
-          matchedBytes = byteArray;
-          matchedReport = report;
-          console.log('\tSuccess!');
+      if (Host.isWin()) {
+        if (devicePath === undefined) {
+          console.log("\tCouldn't connect");
+          return { matchedReport: undefined } as ProbeResult;
+        }
+        try {
+          hidDevice = new HID.HID(devicePath);
+        } catch {
+          console.log("\tCouldn't connect");
+          return { matchedReport: undefined } as ProbeResult;
+        }
+      } else {
+        try {
+          hidDevice = new HID.HID(device.vendorId, device.productId);
+        } catch {
+          console.log("\tCouldn't connect");
+          return { matchedReport: undefined } as ProbeResult;
+        }
+      }
 
-          return true;
+      let report: number[] = [];
+      let matchedBytes;
+      let matchedReport;
+
+      knownBytes.some((bytes) => {
+        console.log('\tWith', bytes);
+        try {
+          hidDevice.write(bytes);
+          report = hidDevice.readTimeout(100);
+
+          if (report.length > 0) {
+            matchedBytes = bytes;
+            matchedReport = report;
+            console.log('\tSuccess!');
+
+            return true;
+          }
+        } catch {
+          // skip
         }
       });
 
@@ -54,12 +81,6 @@ export default class Probe {
       }
 
       return result.matchedReport.length > 0;
-    });
-  }
-
-  steelseriesHeadsets(): UsbDevice[] {
-    return this.devices.filter((device: UsbDevice) => {
-      return device.vendorId === KnownHeadphone.ArctisVendorID;
     });
   }
 }

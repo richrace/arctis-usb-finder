@@ -1,7 +1,7 @@
-import UsbDevice from './usb_device';
+import HID from 'node-hid';
 
 interface ProbeResult {
-  device: UsbDevice;
+  device: HID.Device;
   matchedBytes: number[] | undefined;
   matchedReport: number[] | undefined;
 }
