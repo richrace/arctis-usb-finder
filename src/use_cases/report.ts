@@ -23,7 +23,9 @@ export default function report(deviceHash: DeviceToHeadphone): DeviceToHeadphone
   }
 
   try {
-    device = new HID.HID(vendorId, productId);
+    if (device === undefined) {
+      device = new HID.HID(vendorId, productId);
+    }
   } catch {
     // skip
   }
@@ -34,6 +36,8 @@ export default function report(deviceHash: DeviceToHeadphone): DeviceToHeadphone
     try {
       device.write(writeBytes);
       report = device.readTimeout(100);
+    } catch {
+      // skip
     } finally {
       device.close();
     }
