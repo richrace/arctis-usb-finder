@@ -11,12 +11,13 @@ export default class Probe {
   }
 
   testUnknownHeadset() {
+    // Order in popularity of the most used write bytes. We can get a false positive.
     const knownBytes = [
-      [0x0, 0x20],
-      [0x06, 0x12],
-      [0x06, 0x18],
-      [0x40, 0xaa],
       [0x00, 0xb0],
+      [0x06, 0x18],
+      [0x06, 0x12],
+      [0x0, 0x20],
+      [0x40, 0xaa],
     ];
 
     const foundHeadphones = this.devices.map((device) => {
