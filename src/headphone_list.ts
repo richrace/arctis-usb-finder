@@ -27,9 +27,9 @@ const list: KnownHeadphone[] = [
     3
   ),
 
-  new KnownHeadphone('Arctis Nova 7', KnownHeadphone.ArctisNova7_ProductID, [0x40, 0xaa], 0xffc0, 0x1, 3, 2, 3),
-  new KnownHeadphone('Arctis Nova 7X', KnownHeadphone.ArctisNova7X_ProductID, [0x40, 0xaa], 0xffc0, 0x1, 3, 2, 3),
-  new KnownHeadphone('Arctis Nova 7P', KnownHeadphone.ArctisNova7P_ProductID, [0x40, 0xaa], 0xffc0, 0x1, 3, 2, 3),
+  new KnownHeadphone('Arctis Nova 7', KnownHeadphone.ArctisNova7_ProductID, [0x00, 0xb0], 0xffc0, 0x1, 3, 2, 3),
+  new KnownHeadphone('Arctis Nova 7X', KnownHeadphone.ArctisNova7X_ProductID, [0x00, 0xb0], 0xffc0, 0x1, 3, 2, 3),
+  new KnownHeadphone('Arctis Nova 7P', KnownHeadphone.ArctisNova7P_ProductID, [0x00, 0xb0], 0xffc0, 0x1, 3, 2, 3),
 ];
 
 export default list;
