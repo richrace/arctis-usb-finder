@@ -1,4 +1,4 @@
-import map from '../../utils/map';
+import { map } from '../../utils/battery_helpers';
 
 const maxBattery = 0x04;
 const minBattery = 0x00;

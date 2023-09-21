@@ -1,15 +1,15 @@
 import HID from 'node-hid';
 
-import KnownHeadphone from '../../../models/known_headphone';
+import DeviceToHeadphone from '../../../interfaces/device_to_headphone';
 import SimpleHeadphone from '../../../interfaces/simple_headphone';
+import KnownHeadphone from '../../../models/known_headphone';
+import Arctis9MapBatteryBuilder from '../../../use_cases/headsets/arctis9_map_battery_builder';
+import Builder from '../../../use_cases/headsets/builder';
 import EasyBatteryBuilder from '../../../use_cases/headsets/easy_battery_builder';
 import MapBatteryBuilder from '../../../use_cases/headsets/map_battery_builder';
+jest.mock('../../../use_cases/headsets/arctis9_map_battery_builder');
 jest.mock('../../../use_cases/headsets/easy_battery_builder');
 jest.mock('../../../use_cases/headsets/map_battery_builder');
-import Builder from '../../../use_cases/headsets/builder';
-import DeviceToHeadphone from '../../../interfaces/device_to_headphone';
-
-const path = 'Test Path';
 
 describe('Builder', () => {
   describe('#build', () => {
@@ -40,7 +40,7 @@ describe('Builder', () => {
 
   describe('#new', () => {
     describe('when the known headphone has a specific builder available', () => {
-      it('creates the Arctis7X builder', () => {
+      it('creates the EasyBatteryBuilder builder with Arctis7X_ProductID', () => {
         const deviceHash: DeviceToHeadphone = {
           hidDevice: {} as HID.Device,
           report: [1, 2, 1, 2],
@@ -53,7 +53,7 @@ describe('Builder', () => {
         expect(EasyBatteryBuilder).toHaveBeenCalled();
       });
 
-      it('creates the Arctis7P builder with Arctis7_Plus_ProductID', () => {
+      it('creates the MapBatteryBuilder builder with Arctis7_Plus_ProductID', () => {
         const deviceHash: DeviceToHeadphone = {
           hidDevice: {} as HID.Device,
           report: [1, 2, 1, 2],
@@ -66,7 +66,7 @@ describe('Builder', () => {
         expect(MapBatteryBuilder).toHaveBeenCalled();
       });
 
-      it('creates the Arctis7P builder with Arctis7P_Plus_ProductID', () => {
+      it('creates the MapBatteryBuilder builder with Arctis7P_Plus_ProductID', () => {
         const deviceHash: DeviceToHeadphone = {
           hidDevice: {} as HID.Device,
           report: [1, 2, 1, 2],
@@ -79,7 +79,7 @@ describe('Builder', () => {
         expect(MapBatteryBuilder).toHaveBeenCalled();
       });
 
-      it('creates the Arctis7P builder with Arctis7X_Plus_ProductID', () => {
+      it('creates the MapBatteryBuilder builder with Arctis7X_Plus_ProductID', () => {
         const deviceHash: DeviceToHeadphone = {
           hidDevice: {} as HID.Device,
           report: [1, 2, 1, 2],
@@ -92,7 +92,7 @@ describe('Builder', () => {
         expect(MapBatteryBuilder).toHaveBeenCalled();
       });
 
-      it('creates the Arctis7P builder with Arctis7_Plus_Destiny_ProductID', () => {
+      it('creates the MapBatteryBuilder builder with Arctis7_Plus_Destiny_ProductID', () => {
         const deviceHash: DeviceToHeadphone = {
           hidDevice: {} as HID.Device,
           report: [1, 2, 1, 2],
@@ -103,6 +103,19 @@ describe('Builder', () => {
         new Builder(deviceHash);
 
         expect(MapBatteryBuilder).toHaveBeenCalled();
+      });
+
+      it('creates the Arctis 9 builder with the Arctis9_ProductID', () => {
+        const deviceHash: DeviceToHeadphone = {
+          hidDevice: {} as HID.Device,
+          report: [1, 2, 1, 50, 1],
+          headphone: {
+            productId: KnownHeadphone.Arctis9_ProductID,
+          } as KnownHeadphone,
+        };
+        new Builder(deviceHash);
+
+        expect(Arctis9MapBatteryBuilder).toHaveBeenCalled();
       });
     });
   });

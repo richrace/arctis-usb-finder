@@ -1,13 +1,13 @@
-import SpecificBuilder from '../../interfaces/specific_builder';
 import SimpleHeadphone from '../../interfaces/simple_headphone';
+import SpecificBuilder from '../../interfaces/specific_builder';
 import KnownHeadphone from '../../models/known_headphone';
-import map from '../../utils/map';
+import { calculateBattery } from '../../utils/battery_helpers';
 
 export default class MapBatteryBuilder implements SpecificBuilder {
   execute(report: number[], knownHeadphone: KnownHeadphone): SimpleHeadphone {
     let isCharging, isDischarging, isConnected;
 
-    const batteryPercent = this.calculateBattery(report[knownHeadphone.batteryPercentIdx]);
+    const batteryPercent = calculateBattery(report[knownHeadphone.batteryPercentIdx]);
 
     if (knownHeadphone.chargingStatusIdx) {
       switch (report[knownHeadphone.chargingStatusIdx]) {
@@ -30,16 +30,5 @@ export default class MapBatteryBuilder implements SpecificBuilder {
     }
 
     return { batteryPercent, isCharging, isDischarging, isConnected } as SimpleHeadphone;
-  }
-
-  private calculateBattery(batteryPercent: number): number {
-    const maxBattery = 0x04;
-    const minBattery = 0x00;
-
-    if (batteryPercent > maxBattery) {
-      return 100;
-    }
-
-    return map(batteryPercent, minBattery, maxBattery, 0, 100);
   }
 }
