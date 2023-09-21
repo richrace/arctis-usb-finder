@@ -5,6 +5,10 @@ import { calculateBattery } from '../../utils/battery_helpers';
 
 export default class Arctis9MapBatteryBuilder implements SpecificBuilder {
   execute(report: number[], knownHeadphone: KnownHeadphone): SimpleHeadphone {
+    if (report.length === 0) {
+      return { isConnected: false } as SimpleHeadphone;
+    }
+
     let isCharging, isDischarging;
 
     const batteryPercent = calculateBattery(report[knownHeadphone.batteryPercentIdx]);

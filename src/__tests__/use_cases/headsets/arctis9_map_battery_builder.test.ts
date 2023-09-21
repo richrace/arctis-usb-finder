@@ -26,4 +26,13 @@ describe('Arctis9MapBatteryBuilder', () => {
     const simpleHeadphone = builder.execute(report, knownHeadphone);
     expect(simpleHeadphone.batteryPercent).toBe(75);
   });
+
+  it('knows it is not connected', () => {
+    knownHeadphone = { batteryPercentIdx } as KnownHeadphone;
+    report = [];
+
+    const simpleHeadphone = builder.execute(report, knownHeadphone);
+    expect(simpleHeadphone.isConnected).toBeFalsy();
+    expect(simpleHeadphone.batteryPercent).toBeUndefined();
+  });
 });
