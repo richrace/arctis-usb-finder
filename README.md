@@ -10,13 +10,22 @@ Finds known Arctis headsets that are currently plugged in via the USB dongle.
 
 ## Supported Headphones
 
-* Arctis 7 2019
+* Arctis Pro Wireless
 * Arctis 7 2017
-* Arctis Pro
-* Arctis 1 Wireless
+* Arctis 7 2019
+* Arctis Pro 2019
+* Arctis Pro GameDac
 * Arctis 9
+* Arctis 1 Wireless
+* Arctis 1 Xbox
 * Arctis 7X
-* Arctis 7+ 2022
+* Arctis 7 Plus
+* Arctis 7P Plus
+* Arctis 7X Plus
+* Arctis 7 Destiny Plus
+* Arctis Nova 7
+* Arctis Nova 7X
+* Arctis Nova 7P
 
 See [Probe](#probe) for how to get find new devices.
 
@@ -29,12 +38,21 @@ npm install arctis-usb-finder
 
 Require the package:
 ```js
-const { getHeadphones, refreshHeadphones } = require('arctis-usb-finder');
+const ArctisUsbFinder = require('arctis-usb-finder');
 ```
 
 Use it:
 ```js
-const headphones = getHeadphones();
+const arctisUsbFinder = new ArctisUsbFinder();
+arctisUsbFinder.loadHeadphones()
+let headphones = arctisUsbFinder.simpleHeadphones()
+
+// Sometime later
+arctisUsbFinder.refreshHeadphones()
+headphones = arctisUsbFinder.simpleHeadphones()
+// or
+arctisUsbFinder.loadHeadphones()
+headphones = arctisUsbFinder.simpleHeadphones()
 ```
 
 Data structure:
