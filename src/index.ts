@@ -15,12 +15,12 @@ class ArctisUsbFinder {
     return simpleBuilder.execute(this.devices);
   }
 
-  loadHeadphones() {
+  loadHeadphones(): void {
     this.findHeadphones();
     this.devices.map(report);
   }
 
-  refreshHeadphones() {
+  refreshHeadphones(): void {
     this.devices.map(report);
   }
 
