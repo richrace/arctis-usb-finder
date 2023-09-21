@@ -1,13 +1,14 @@
 import HID, { Device } from 'node-hid';
 
 import ProbeResult from '../interfaces/probe_result';
+import KnownHeadphone from '../models/known_headphone';
 import Host from '../utils/host';
 
 export default class Probe {
   readonly devices: Device[];
 
   constructor() {
-    this.devices = HID.devices().filter((d) => d.vendorId === 4152);
+    this.devices = HID.devices().filter((d) => d.vendorId === KnownHeadphone.ArctisVendorID);
   }
 
   testUnknownHeadset() {
