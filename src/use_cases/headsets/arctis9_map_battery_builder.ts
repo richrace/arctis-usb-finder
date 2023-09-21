@@ -9,19 +9,21 @@ export default class Arctis9MapBatteryBuilder implements SpecificBuilder {
       return { isConnected: false } as SimpleHeadphone;
     }
 
-    let isCharging, isDischarging;
-
-    const batteryPercent = calculateBattery(report[knownHeadphone.batteryPercentIdx]);
+    const batteryPercent = calculateBattery(report[knownHeadphone.batteryPercentIdx], 0x64, 0x9a);
     const isConnected = true;
+    let isCharging: boolean | undefined;
+    let isDischarging: boolean | undefined;
 
-    if (knownHeadphone.chargingStatusIdx && report[knownHeadphone.chargingStatusIdx] === 0x01) {
-      isCharging = true;
-      isDischarging = false;
-    } else {
-      isCharging = false;
-      isDischarging = true;
+    if (knownHeadphone.chargingStatusIdx) {
+      if (report[knownHeadphone.chargingStatusIdx]) {
+        isCharging = true;
+        isDischarging = false;
+      } else {
+        isCharging = false;
+        isDischarging = true;
+      }
     }
 
-    return { batteryPercent, isCharging, isDischarging, isConnected } as SimpleHeadphone;
+    return { batteryPercent, isConnected, isCharging, isDischarging } as SimpleHeadphone;
   }
 }
