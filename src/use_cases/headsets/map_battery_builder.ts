@@ -8,7 +8,6 @@ export default class MapBatteryBuilder implements SpecificBuilder {
     let isCharging, isDischarging, isConnected;
 
     const batteryPercent = calculateBattery(report[knownHeadphone.batteryPercentIdx]);
-
     if (knownHeadphone.chargingStatusIdx) {
       switch (report[knownHeadphone.chargingStatusIdx]) {
         case 0: // Not Connected
@@ -28,7 +27,6 @@ export default class MapBatteryBuilder implements SpecificBuilder {
           break;
       }
     }
-
     return { batteryPercent, isCharging, isDischarging, isConnected } as SimpleHeadphone;
   }
 }
