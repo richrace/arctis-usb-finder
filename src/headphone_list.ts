@@ -13,6 +13,7 @@ const list: KnownHeadphone[] = [
   new KnownHeadphone('Arctis 1 Wireless', KnownHeadphone.Arctis1W_ProductID, [0x06, 0x12], 0xff43, 0x202, 0x03, 3, 4),
   new KnownHeadphone('Arctis 1 Xbox', KnownHeadphone.Arctis1X_ProductID, [0x06, 0x12], 0xff43, 0x202, 0x03, 3, 4),
   new KnownHeadphone('Arctis 7X', KnownHeadphone.Arctis7X_ProductID, [0x06, 0x12], 0xff43, 0x202, 0x03, 3, 4, 5),
+  new KnownHeadphone('Arctis 7P', KnownHeadphone.Arctis7P_ProductID, [0x06, 0x12], 0xff43, 0x0202, 3, 3, 4),
 
   new KnownHeadphone('Arctis 7 Plus', KnownHeadphone.Arctis7_Plus_ProductID, [0x00, 0xb0], 0xffc0, 0x1, 3, 2, 3),
   new KnownHeadphone('Arctis 7P Plus', KnownHeadphone.Arctis7P_Plus_ProductID, [0x00, 0xb0], 0xffc0, 0x1, 3, 2, 3),
