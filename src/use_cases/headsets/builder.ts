@@ -20,6 +20,7 @@ export default class Builder {
     const knownHeadphone = deviceHash.headphone as KnownHeadphone;
 
     switch (knownHeadphone.productId) {
+      case KnownHeadphone.Arctis7P_ProductID:
       case KnownHeadphone.Arctis7X_ProductID:
       case KnownHeadphone.Arctis1W_ProductID:
       case KnownHeadphone.Arctis1X_ProductID:

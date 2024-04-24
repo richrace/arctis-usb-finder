@@ -11,7 +11,6 @@ class ArctisUsbFinder {
 
   simpleHeadphones(): SimpleHeadphone[] {
     const simpleBuilder = new BuildSimpleHeadphones();
-
     return simpleBuilder.execute(this.devices);
   }
 
@@ -34,9 +33,7 @@ class ArctisUsbFinder {
           report: [],
           headphone: HeadphoneList.find((headphone) => {
             const result = hidDevice.vendorId === headphone.vendorId && hidDevice.productId === headphone.productId;
-
-            if (result === false) return false;
-
+            if (!result) return false;
             if (headphone.usagePage !== 0 && headphone.usage !== 0) {
               return (
                 hidDevice.usagePage === headphone.usagePage &&
@@ -52,7 +49,6 @@ class ArctisUsbFinder {
       .filter((hash) => {
         if (hash.headphone) {
           hash.headphone.path = hash.hidDevice.path;
-
           return true;
         }
       });
