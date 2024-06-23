@@ -141,6 +141,25 @@ describe('Builder', () => {
         });
       });
 
+      it('uses the Arctis 7P builder', () => {
+        const deviceHash: DeviceToHeadphone = {
+          hidDevice: {} as HID.Device,
+          report: [1, 2, 1, 2],
+          headphone: {
+            productId: KnownHeadphone.Arctis7P_ProductID,
+          } as KnownHeadphone,
+        };
+        const builder = new Builder(deviceHash);
+
+        const spy = jest.spyOn(EasyBatteryBuilder.prototype, 'execute').mockReturnValue({} as SimpleHeadphone);
+
+        builder.execute();
+
+        expect(spy).toHaveBeenCalledWith([1, 2, 1, 2], {
+          productId: KnownHeadphone.Arctis7X_ProductID,
+        });
+      });
+
       it('merges the specific builder output', () => {
         const deviceHash: DeviceToHeadphone = {
           hidDevice: {} as HID.Device,
@@ -176,7 +195,7 @@ describe('Builder', () => {
             interfaceNum: undefined,
             usagePage: undefined,
             usage: undefined,
-          }
+          },
         );
       });
     });
