@@ -1,6 +1,0 @@
-engines:
-  tslint:
-    enabled: true
-    checks:
-      no-object-literal-type-assertion:
-        enabled: false
