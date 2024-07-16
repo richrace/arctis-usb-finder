@@ -33,7 +33,7 @@ export default class Builder {
       case KnownHeadphone.ArctisNova7_ProductID:
       case KnownHeadphone.ArctisNova7X_ProductID:
       case KnownHeadphone.ArctisNova7P_ProductID:
-      case KnownHeadphone.ArctisPro_Wirelress_ProductID:
+      case KnownHeadphone.ArctisPro_Wireless_ProductID:
         this.specificBuilder = new MapBatteryBuilder();
         break;
       case KnownHeadphone.Arctis9_ProductID:
@@ -54,7 +54,7 @@ export default class Builder {
       path: headphone.path,
       interfaceNum: hidDevice.interface,
       usagePage: hidDevice.usagePage,
-      usage: hidDevice.usage,
+      usage: hidDevice.usage
     } as SimpleHeadphone;
 
     if (this.specificBuilder) {

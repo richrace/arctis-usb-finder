@@ -1,7 +1,7 @@
 import KnownHeadphone from './models/known_headphone';
 
 const list: KnownHeadphone[] = [
-  new KnownHeadphone('Arctis Pro Wireless', KnownHeadphone.ArctisPro_Wirelress_ProductID, [0x40, 0xaa], 0, 0, 0, 0),
+  new KnownHeadphone('Arctis Pro Wireless', KnownHeadphone.ArctisPro_Wireless_ProductID, [0x40, 0xaa], 0, 0, 0, 0),
 
   new KnownHeadphone('Arctis 7 2017', KnownHeadphone.Arctis7_2017_ProductID, [0x06, 0x18], 0, 0, 0x05, 2),
   new KnownHeadphone('Arctis 7 2019', KnownHeadphone.Arctis7_2019_ProductID, [0x06, 0x18], 0, 0, 0x05, 2),
@@ -30,7 +30,7 @@ const list: KnownHeadphone[] = [
 
   new KnownHeadphone('Arctis Nova 7', KnownHeadphone.ArctisNova7_ProductID, [0x00, 0xb0], 0xffc0, 0x1, 3, 2, 3),
   new KnownHeadphone('Arctis Nova 7X', KnownHeadphone.ArctisNova7X_ProductID, [0x00, 0xb0], 0xffc0, 0x1, 3, 2, 3),
-  new KnownHeadphone('Arctis Nova 7P', KnownHeadphone.ArctisNova7P_ProductID, [0x00, 0xb0], 0xffc0, 0x1, 3, 2, 3),
+  new KnownHeadphone('Arctis Nova 7P', KnownHeadphone.ArctisNova7P_ProductID, [0x00, 0xb0], 0xffc0, 0x1, 3, 2, 3)
 ];
 
 export default list;
