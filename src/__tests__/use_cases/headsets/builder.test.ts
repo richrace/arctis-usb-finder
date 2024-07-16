@@ -21,7 +21,7 @@ describe('Builder', () => {
       const deviceHash: DeviceToHeadphone = {
         report,
         hidDevice,
-        headphone: knownHeadphone,
+        headphone: knownHeadphone
       };
       const simpleHeadphone = Builder.build(deviceHash);
 
@@ -33,7 +33,7 @@ describe('Builder', () => {
         vendorId: undefined,
         interfaceNum: undefined,
         usagePage: undefined,
-        usage: undefined,
+        usage: undefined
       } as unknown as SimpleHeadphone);
     });
   });
@@ -45,8 +45,8 @@ describe('Builder', () => {
           hidDevice: {} as HID.Device,
           report: [1, 2, 1, 2],
           headphone: {
-            productId: KnownHeadphone.Arctis7X_ProductID,
-          } as KnownHeadphone,
+            productId: KnownHeadphone.Arctis7X_ProductID
+          } as KnownHeadphone
         };
         new Builder(deviceHash);
 
@@ -58,8 +58,8 @@ describe('Builder', () => {
           hidDevice: {} as HID.Device,
           report: [1, 2, 1, 2],
           headphone: {
-            productId: KnownHeadphone.Arctis7_Plus_ProductID,
-          } as KnownHeadphone,
+            productId: KnownHeadphone.Arctis7_Plus_ProductID
+          } as KnownHeadphone
         };
         new Builder(deviceHash);
 
@@ -71,8 +71,8 @@ describe('Builder', () => {
           hidDevice: {} as HID.Device,
           report: [1, 2, 1, 2],
           headphone: {
-            productId: KnownHeadphone.Arctis7P_Plus_ProductID,
-          } as KnownHeadphone,
+            productId: KnownHeadphone.Arctis7P_Plus_ProductID
+          } as KnownHeadphone
         };
         new Builder(deviceHash);
 
@@ -84,8 +84,8 @@ describe('Builder', () => {
           hidDevice: {} as HID.Device,
           report: [1, 2, 1, 2],
           headphone: {
-            productId: KnownHeadphone.Arctis7X_Plus_ProductID,
-          } as KnownHeadphone,
+            productId: KnownHeadphone.Arctis7X_Plus_ProductID
+          } as KnownHeadphone
         };
         new Builder(deviceHash);
 
@@ -97,8 +97,8 @@ describe('Builder', () => {
           hidDevice: {} as HID.Device,
           report: [1, 2, 1, 2],
           headphone: {
-            productId: KnownHeadphone.Arctis7_Plus_Destiny_ProductID,
-          } as KnownHeadphone,
+            productId: KnownHeadphone.Arctis7_Plus_Destiny_ProductID
+          } as KnownHeadphone
         };
         new Builder(deviceHash);
 
@@ -110,8 +110,8 @@ describe('Builder', () => {
           hidDevice: {} as HID.Device,
           report: [1, 2, 1, 50, 1],
           headphone: {
-            productId: KnownHeadphone.Arctis9_ProductID,
-          } as KnownHeadphone,
+            productId: KnownHeadphone.Arctis9_ProductID
+          } as KnownHeadphone
         };
         new Builder(deviceHash);
 
@@ -127,8 +127,8 @@ describe('Builder', () => {
           hidDevice: {} as HID.Device,
           report: [1, 2, 1, 2],
           headphone: {
-            productId: KnownHeadphone.Arctis7X_ProductID,
-          } as KnownHeadphone,
+            productId: KnownHeadphone.Arctis7X_ProductID
+          } as KnownHeadphone
         };
         const builder = new Builder(deviceHash);
 
@@ -137,7 +137,7 @@ describe('Builder', () => {
         builder.execute();
 
         expect(spy).toHaveBeenCalledWith([1, 2, 1, 2], {
-          productId: KnownHeadphone.Arctis7X_ProductID,
+          productId: KnownHeadphone.Arctis7X_ProductID
         });
       });
 
@@ -146,8 +146,8 @@ describe('Builder', () => {
           hidDevice: {} as HID.Device,
           report: [1, 2, 1, 2],
           headphone: {
-            productId: KnownHeadphone.Arctis7P_ProductID,
-          } as KnownHeadphone,
+            productId: KnownHeadphone.Arctis7P_ProductID
+          } as KnownHeadphone
         };
         const builder = new Builder(deviceHash);
 
@@ -156,7 +156,7 @@ describe('Builder', () => {
         builder.execute();
 
         expect(spy).toHaveBeenCalledWith([1, 2, 1, 2], {
-          productId: KnownHeadphone.Arctis7X_ProductID,
+          productId: KnownHeadphone.Arctis7X_ProductID
         });
       });
 
@@ -166,8 +166,8 @@ describe('Builder', () => {
           report: [1, 2, 1, 50, 50],
           headphone: {
             productId: KnownHeadphone.Arctis7X_ProductID,
-            path: 'Test Path',
-          } as KnownHeadphone,
+            path: 'Test Path'
+          } as KnownHeadphone
         };
         const builder = new Builder(deviceHash);
 
@@ -185,7 +185,7 @@ describe('Builder', () => {
             vendorId: undefined,
             interfaceNum: undefined,
             usagePage: undefined,
-            usage: undefined,
+            usage: undefined
           },
           {
             modelName: undefined,
@@ -194,8 +194,8 @@ describe('Builder', () => {
             vendorId: undefined,
             interfaceNum: undefined,
             usagePage: undefined,
-            usage: undefined,
-          },
+            usage: undefined
+          }
         );
       });
     });
