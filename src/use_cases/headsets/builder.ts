@@ -34,6 +34,8 @@ export default class Builder {
       case KnownHeadphone.ArctisNova7_ProductID:
       case KnownHeadphone.ArctisNova7X_ProductID:
       case KnownHeadphone.ArctisNova7P_ProductID:
+      case KnownHeadphone.ArctisNova7_Diablo_IV_ProductID:
+      case KnownHeadphone.ArctisNova7X_V2_ProductID:
       case KnownHeadphone.ArctisPro_Wireless_ProductID:
         this.specificBuilder = new MapBatteryBuilder();
         break;

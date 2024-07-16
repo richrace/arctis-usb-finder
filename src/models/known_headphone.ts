@@ -24,7 +24,9 @@ export default class KnownHeadphone {
 
   static ArctisNova7_ProductID = 0x2202;
   static ArctisNova7X_ProductID = 0x2206;
+  static ArctisNova7X_V2_ProductID = 0x2258;
   static ArctisNova7P_ProductID = 0x220a;
+  static ArctisNova7_Diablo_IV_ProductID = 0x223a;
 
   constructor(
     readonly name: string,
