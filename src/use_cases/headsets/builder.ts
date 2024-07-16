@@ -44,6 +44,7 @@ export default class Builder {
         break;
       case KnownHeadphone.Arctis_Nova_Pro_Wireless_ProductID:
         this.specificBuilder = new ArctisNovaProBuilder();
+        break;
     }
   }
 
