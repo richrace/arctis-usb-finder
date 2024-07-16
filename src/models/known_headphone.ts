@@ -2,6 +2,9 @@ export default class KnownHeadphone {
   static ArctisVendorID = 4152;
 
   static ArctisPro_Wireless_ProductID = 0x1290;
+
+  static Arctis_Nova_Pro_Wireless_ProductID = 0x12e0;
+
   static Arctis7_2017_ProductID = 0x1260;
   static Arctis7_2019_ProductID = 0x12ad;
   static ArctisPro_2019_ProductID = 0x1252;

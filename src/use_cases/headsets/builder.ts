@@ -3,6 +3,7 @@ import SimpleHeadphone from '../../interfaces/simple_headphone';
 import SpecificBuilder from '../../interfaces/specific_builder';
 import KnownHeadphone from '../../models/known_headphone';
 import Arctis9MapBatteryBuilder from './arctis9_map_battery_builder';
+import ArctisNovaProBuilder from './arctis_nova_pro_builder';
 import EasyBatteryBuilder from './easy_battery_builder';
 import MapBatteryBuilder from './map_battery_builder';
 
@@ -39,6 +40,8 @@ export default class Builder {
       case KnownHeadphone.Arctis9_ProductID:
         this.specificBuilder = new Arctis9MapBatteryBuilder();
         break;
+      case KnownHeadphone.Arctis_Nova_Pro_Wireless_ProductID:
+        this.specificBuilder = new ArctisNovaProBuilder();
     }
   }
 
