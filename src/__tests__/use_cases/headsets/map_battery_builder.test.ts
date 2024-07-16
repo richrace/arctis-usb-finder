@@ -47,7 +47,7 @@ describe('MapBatteryBuilder', () => {
     expect(simpleHeadphone.isDischarging).toBe(undefined);
   });
 
-  it('knowns the battery', () => {
+  it('knows the battery', () => {
     knownHeadphone = { batteryPercentIdx } as KnownHeadphone;
     report = [0, 1, 3, 90, 0, 0];
 

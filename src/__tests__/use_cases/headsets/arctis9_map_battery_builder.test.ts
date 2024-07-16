@@ -19,7 +19,7 @@ describe('Arctis9MapBatteryBuilder', () => {
     expect(simpleHeadphone.isConnected).toBe(true);
   });
 
-  it('knowns the battery', () => {
+  it('knows the battery', () => {
     report = [0, 1, 1, 141, 0, 0];
 
     const simpleHeadphone = builder.execute(report, knownHeadphone);
