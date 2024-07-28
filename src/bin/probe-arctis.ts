@@ -1,11 +1,7 @@
 #!/usr/bin/env node
 import HID from 'node-hid';
 import * as readline from 'readline';
-
-// import UsbDevice from '../interfaces/usb_device';
-
 import Probe from '../use_cases/probe';
-import ProbeResult from '../interfaces/probe_result';
 
 function printPreamble() {
   console.log('Welcome to Arctis USB Finder Probe');
@@ -27,7 +23,8 @@ function probe() {
   console.log('About to look for SteelSeries USB devices...');
   console.log(' ');
 
-  const probe = new Probe();
+  const outputMessage = true;
+  const probe = new Probe(outputMessage);
 
   const steelseriesHeadsets: HID.Device[] = probe.devices;
 
@@ -46,39 +43,19 @@ function probe() {
   console.log('About to Probe...');
   console.log(' ');
 
-  const foundHeadphones = probe.testUnknownHeadset();
+  probe.testUnknownHeadset();
 
   console.log(' ');
   console.log('**** Finished Probing ****');
   console.log(' ');
   console.log(' ');
 
-  if (foundHeadphones.length > 0) {
-    console.log('Use can use the following information to create a develop your own solution and create a PR.');
-    console.log('Or please copy / paste the following information and create an issue on the GitHub repo.');
-    console.log('Go to: https://github.com/richrace/arctis-usb-finder/');
-    console.log('You can look for values changing when press mute/changing chat mixer/charging');
-    console.log(' ');
-    console.log(' ');
-    console.log('Devices found:');
-    console.log(' ');
-
-    foundHeadphones.forEach((result: ProbeResult) => {
-      console.log('Product:', result.deviceProductName);
-      console.log('Product ID:', result.deviceProductId);
-      console.log('Bytes:', result.matchedBytes);
-      console.log('Report:', result.matchedReport);
-      console.log('Path:', result.devicePath);
-      console.log(' ');
-    });
-  }
-
   exitMessage();
 }
 
 const rl = readline.createInterface({
   input: process.stdin,
-  output: process.stdout,
+  output: process.stdout
 });
 
 printPreamble();
