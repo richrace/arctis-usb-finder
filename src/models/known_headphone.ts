@@ -1,3 +1,38 @@
+interface KnownHeadphoneProps {
+  name: string;
+  productId: number;
+  writeBytes: number[];
+  usagePage: number;
+  usage: number;
+  interfaceNum: number;
+  batteryPercentIdx: number;
+  chargingStatusIdx?: number;
+  micStatusIdx?: number;
+}
+
+export const KnownHeadphoneFactory = ({
+  name,
+  productId,
+  writeBytes,
+  usagePage,
+  usage,
+  interfaceNum,
+  batteryPercentIdx,
+  chargingStatusIdx,
+  micStatusIdx
+}: KnownHeadphoneProps): KnownHeadphone =>
+  new KnownHeadphone(
+    name,
+    productId,
+    writeBytes,
+    usagePage,
+    usage,
+    interfaceNum,
+    batteryPercentIdx,
+    chargingStatusIdx,
+    micStatusIdx
+  );
+
 export default class KnownHeadphone {
   static ArctisVendorID = 4152;
 
