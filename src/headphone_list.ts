@@ -24,6 +24,18 @@ const writeBytes6and176 = {
   chargingStatusIdx: 3
 };
 
+const writeBytes6and176_chatmix = {
+  writeBytes: [0x00, 0xb0],
+  usagePage: 0xffc0,
+  usage: 0x1,
+  interfaceNum: 3,
+  batteryPercentIdx: 2,
+  chargingStatusIdx: 3,
+  gameVolumeIdx: 4,
+  chatVolumeIdx: 5
+};
+
+
 const list: KnownHeadphone[] = [
   KnownHeadphoneFactory({
     name: 'Arctis Pro Wireless',
@@ -123,7 +135,7 @@ const list: KnownHeadphone[] = [
   KnownHeadphoneFactory({
     name: 'Arctis Nova 7',
     productId: KnownHeadphone.ArctisNova7_ProductID,
-    ...writeBytes6and176
+    ...writeBytes6and176_chatmix
   }),
   KnownHeadphoneFactory({
     name: 'Arctis Nova 7X',

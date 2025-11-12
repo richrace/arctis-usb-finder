@@ -8,6 +8,8 @@ interface KnownHeadphoneProps {
   batteryPercentIdx: number;
   chargingStatusIdx?: number;
   micStatusIdx?: number;
+  gameVolumeIdx?: number;
+  chatVolumeIdx?: number;
 }
 
 export const KnownHeadphoneFactory = ({
@@ -19,7 +21,9 @@ export const KnownHeadphoneFactory = ({
   interfaceNum,
   batteryPercentIdx,
   chargingStatusIdx,
-  micStatusIdx
+  micStatusIdx,
+  gameVolumeIdx,
+  chatVolumeIdx
 }: KnownHeadphoneProps): KnownHeadphone =>
   new KnownHeadphone(
     name,
@@ -30,7 +34,9 @@ export const KnownHeadphoneFactory = ({
     interfaceNum,
     batteryPercentIdx,
     chargingStatusIdx,
-    micStatusIdx
+    micStatusIdx,
+    gameVolumeIdx,
+    chatVolumeIdx
   );
 
 export default class KnownHeadphone {
@@ -73,6 +79,8 @@ export default class KnownHeadphone {
     readonly batteryPercentIdx: number,
     readonly chargingStatusIdx?: number,
     readonly micStatusIdx?: number,
+    readonly gameVolumeIdx?: number,
+    readonly chatVolumeIdx?: number,
     public path?: string,
     readonly vendorId = KnownHeadphone.ArctisVendorID
   ) {}

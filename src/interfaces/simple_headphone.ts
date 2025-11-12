@@ -7,6 +7,8 @@ interface SimpleHeadphone {
   isConnected: boolean | undefined;
   isCharging: boolean | undefined;
   isDischarging: boolean | undefined;
+  gameVolume: number | undefined;
+  chatVolume: number | undefined;
   path: string | undefined;
   interfaceNum: number;
   usagePage: number;

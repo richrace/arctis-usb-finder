@@ -8,11 +8,13 @@ import ArctisNovaProBuilder from '../../../use_cases/headsets/arctis_nova_pro_bu
 import Builder from '../../../use_cases/headsets/builder';
 import EasyBatteryBuilder from '../../../use_cases/headsets/easy_battery_builder';
 import MapBatteryBuilder from '../../../use_cases/headsets/map_battery_builder';
+import MapBatteryChatmixBuilder from '../../../use_cases/headsets/map_battery_chatmix_builder';
 
 jest.mock('../../../use_cases/headsets/arctis_nova_pro_builder');
 jest.mock('../../../use_cases/headsets/arctis9_map_battery_builder');
 jest.mock('../../../use_cases/headsets/easy_battery_builder');
 jest.mock('../../../use_cases/headsets/map_battery_builder');
+jest.mock('../../../use_cases/headsets/map_battery_chatmix_builder');
 
 describe('Builder', () => {
   describe('#build', () => {
@@ -132,6 +134,20 @@ describe('Builder', () => {
         new Builder(deviceHash);
 
         expect(ArctisNovaProBuilder).toHaveBeenCalled();
+      });
+
+      // new test for map_battery_chatmix_builder with ArctisNova7_ProductID
+      it('creates the MapBatteryChatmixBuilder with the ArctisNova7_ProductID', () => {
+        const deviceHash: DeviceToHeadphone = {
+          hidDevice: {} as HID.Device,
+          report: [0, 1, 1, 0, 1, 0, 4, 0, 8, 9, 10, 11, 12, 13, 14, 8, 16],
+          headphone: {
+            productId: KnownHeadphone.ArctisNova7_ProductID
+          } as KnownHeadphone
+        };
+        new Builder(deviceHash);
+
+        expect(MapBatteryChatmixBuilder).toHaveBeenCalled();
       });
     });
   });

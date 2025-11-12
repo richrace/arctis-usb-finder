@@ -6,6 +6,7 @@ import Arctis9MapBatteryBuilder from './arctis9_map_battery_builder';
 import ArctisNovaProBuilder from './arctis_nova_pro_builder';
 import EasyBatteryBuilder from './easy_battery_builder';
 import MapBatteryBuilder from './map_battery_builder';
+import MapBatteryChatmixBuilder from './map_battery_chatmix_builder';
 
 export default class Builder {
   private specificBuilder: SpecificBuilder | undefined;
@@ -31,13 +32,15 @@ export default class Builder {
       case KnownHeadphone.Arctis7X_Plus_ProductID:
       case KnownHeadphone.Arctis7_Plus_Destiny_ProductID:
       case KnownHeadphone.Arctis7_Plus_ProductID:
-      case KnownHeadphone.ArctisNova7_ProductID:
       case KnownHeadphone.ArctisNova7X_ProductID:
       case KnownHeadphone.ArctisNova7P_ProductID:
       case KnownHeadphone.ArctisNova7_Diablo_IV_ProductID:
       case KnownHeadphone.ArctisNova7X_V2_ProductID:
       case KnownHeadphone.ArctisPro_Wireless_ProductID:
         this.specificBuilder = new MapBatteryBuilder();
+        break;
+      case KnownHeadphone.ArctisNova7_ProductID:
+        this.specificBuilder = new MapBatteryChatmixBuilder();
         break;
       case KnownHeadphone.Arctis9_ProductID:
         this.specificBuilder = new Arctis9MapBatteryBuilder();
