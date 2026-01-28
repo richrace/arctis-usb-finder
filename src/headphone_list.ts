@@ -50,10 +50,23 @@ const list: KnownHeadphone[] = [
     name: 'Arctis Nova Pro Wireless',
     productId: KnownHeadphone.Arctis_Nova_Pro_Wireless_ProductID,
     writeBytes: [0x06, 0xb0],
-    usagePage: 0,
-    usage: 0,
+    usagePage: 0xffc0,
+    usage: 0x1,
     interfaceNum: 4,
     batteryPercentIdx: 6,
+    batteryPercentIdx2: 7,
+    batteryPresentIdx2: 5, // 1 = battery present, 0 = no battery
+    chargingStatusIdx: 15
+  }),
+  KnownHeadphoneFactory({
+    name: 'Arctis Nova Elite',
+    productId: KnownHeadphone.Arctis_Nova_Elite_ProductID,
+    writeBytes: [0x06, 0xb0],
+    usagePage: 0xffc0,
+    usage: 0x1,
+    interfaceNum: 3,
+    batteryPercentIdx: 6,
+    batteryPercentIdx2: 7,
     chargingStatusIdx: 15
   }),
 

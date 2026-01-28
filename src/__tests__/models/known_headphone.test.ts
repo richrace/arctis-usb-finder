@@ -10,6 +10,8 @@ describe('KnownHeadphone', () => {
   const usage = 1;
   const interfaceNum = 1;
   const batteryPercentIdx = 1;
+  const batteryPercentIdx2 = 2;
+  const batteryPresentIdx2 = 3;
   const chargingStatusIdx = 1;
   const micStatusIdx = 1;
   const gameVolumeIdx = 1;
@@ -28,6 +30,8 @@ describe('KnownHeadphone', () => {
       usage,
       interfaceNum,
       batteryPercentIdx,
+      batteryPercentIdx2,
+      batteryPresentIdx2,
       chargingStatusIdx,
       micStatusIdx,
       gameVolumeIdx,
