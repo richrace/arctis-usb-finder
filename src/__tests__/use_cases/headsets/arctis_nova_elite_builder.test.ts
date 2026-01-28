@@ -1,5 +1,5 @@
 import KnownHeadphone from '../../../models/known_headphone';
-import ArctisNovaEliteBuilder from '../../../use_cases/headsets/arctis_nova_pro_elite_builder';
+import ArctisNovaEliteBuilder from '../../../use_cases/headsets/arctis_nova_elite_builder';
 
 describe('ArctisNovaEliteBuilder', () => {
   const builder = new ArctisNovaEliteBuilder();

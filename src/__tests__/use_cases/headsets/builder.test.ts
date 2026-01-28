@@ -4,13 +4,15 @@ import DeviceToHeadphone from '../../../interfaces/device_to_headphone';
 import SimpleHeadphone from '../../../interfaces/simple_headphone';
 import KnownHeadphone from '../../../models/known_headphone';
 import Arctis9MapBatteryBuilder from '../../../use_cases/headsets/arctis9_map_battery_builder';
-import ArctisNovaEliteBuilder, { ArctisNovaProWirelessBuilder } from '../../../use_cases/headsets/arctis_nova_pro_elite_builder';
+import ArctisNovaEliteBuilder from '../../../use_cases/headsets/arctis_nova_elite_builder';
+import ArctisNovaProWirelessBuilder from '../../../use_cases/headsets/arctis_nova_pro_wireless_builder';
 import Builder from '../../../use_cases/headsets/builder';
 import EasyBatteryBuilder from '../../../use_cases/headsets/easy_battery_builder';
 import MapBatteryBuilder from '../../../use_cases/headsets/map_battery_builder';
 import MapBatteryChatmixBuilder from '../../../use_cases/headsets/map_battery_chatmix_builder';
 
-jest.mock('../../../use_cases/headsets/arctis_nova_pro_elite_builder');
+jest.mock('../../../use_cases/headsets/arctis_nova_elite_builder');
+jest.mock('../../../use_cases/headsets/arctis_nova_pro_wireless_builder');
 jest.mock('../../../use_cases/headsets/arctis9_map_battery_builder');
 jest.mock('../../../use_cases/headsets/easy_battery_builder');
 jest.mock('../../../use_cases/headsets/map_battery_builder');
