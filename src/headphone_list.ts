@@ -67,6 +67,7 @@ const list: KnownHeadphone[] = [
     interfaceNum: 3,
     batteryPercentIdx: 6,
     batteryPercentIdx2: 7,
+    batteryPresentIdx2: 5,
     chargingStatusIdx: 15
   }),
 

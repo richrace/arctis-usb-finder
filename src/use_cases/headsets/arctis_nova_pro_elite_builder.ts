@@ -58,7 +58,6 @@ export class ArctisNovaProWirelessBuilder implements SpecificBuilder {
 }
 
 // Nova Elite uses direct percentage values (0-100) for both batteries
-// TODO: Add batteryPresentIdx2 for Nova Elite to detect battery presence (like Nova Pro Wireless)
 export default class ArctisNovaEliteBuilder implements SpecificBuilder {
   execute(report: number[], knownHeadphone: KnownHeadphone): SimpleHeadphone {
     if (report.length === 0) {
@@ -70,7 +69,7 @@ export default class ArctisNovaEliteBuilder implements SpecificBuilder {
     let batteryPercent2: number | undefined;
     let hasBattery2: boolean | undefined;
 
-    // TODO: Find and add batteryPresentIdx2 for Nova Elite to properly detect battery presence
+    // Check if base station battery is present (index 5: 1=present, 0=not present)
     if (knownHeadphone.batteryPresentIdx2 !== undefined) {
       hasBattery2 = report[knownHeadphone.batteryPresentIdx2] === 1;
     }
