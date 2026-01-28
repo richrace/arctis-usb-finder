@@ -3,26 +3,27 @@ import SpecificBuilder from '../../interfaces/specific_builder';
 import KnownHeadphone from '../../models/known_headphone';
 import { calculateBattery } from '../../utils/battery_helpers';
 
-// Nova Pro Wireless uses mapped battery values (0-4 range) for base station battery
+// Nova Pro Wireless uses mapped battery values (0-8 range) for both batteries
 export class ArctisNovaProWirelessBuilder implements SpecificBuilder {
   execute(report: number[], knownHeadphone: KnownHeadphone): SimpleHeadphone {
     if (report.length === 0) {
       return { isConnected: false } as SimpleHeadphone;
     }
 
-    // Headset battery uses mapped 0-4 range
-    let batteryPercent: number | undefined = calculateBattery(report[knownHeadphone.batteryPercentIdx]);
+    // Headset battery uses mapped 0-8 range
+    let batteryPercent: number | undefined = calculateBattery(report[knownHeadphone.batteryPercentIdx], 0, 8);
     let batteryPercent2: number | undefined;
     let hasBattery2: boolean | undefined;
 
-    // Check if base station battery is present (index 5: 1=present, 0=not present)
-    if (knownHeadphone.batteryPresentIdx2 !== undefined) {
-      hasBattery2 = report[knownHeadphone.batteryPresentIdx2] === 1;
-    }
-
-    // Base station battery also uses mapped 0-4 range
+    // Read battery2 percentage (0-8 range mapped to 0-100)
     if (knownHeadphone.batteryPercentIdx2 !== undefined) {
-      batteryPercent2 = calculateBattery(report[knownHeadphone.batteryPercentIdx2]);
+      const rawBattery2 = report[knownHeadphone.batteryPercentIdx2];
+      // Battery is present if raw value > 0 (charging/charged battery)
+      // Index 5 presence detection doesn't work reliably for Nova Pro
+      if (rawBattery2 > 0) {
+        hasBattery2 = true;
+        batteryPercent2 = calculateBattery(rawBattery2, 0, 8);
+      }
     }
 
     let isConnected = false;
@@ -69,14 +70,14 @@ export default class ArctisNovaEliteBuilder implements SpecificBuilder {
     let batteryPercent2: number | undefined;
     let hasBattery2: boolean | undefined;
 
-    // Check if base station battery is present (index 5: 1=present, 0=not present)
-    if (knownHeadphone.batteryPresentIdx2 !== undefined) {
-      hasBattery2 = report[knownHeadphone.batteryPresentIdx2] === 1;
-    }
-
-    // batteryPercent2: undefined = no battery slot, 0 = error/dead battery, 1-100 = normal
+    // Read battery2 percentage (direct 0-100 value)
     if (knownHeadphone.batteryPercentIdx2 !== undefined) {
-      batteryPercent2 = report[knownHeadphone.batteryPercentIdx2];
+      const rawBattery2 = report[knownHeadphone.batteryPercentIdx2];
+      // Battery is present if raw value > 0 (charging/charged battery)
+      if (rawBattery2 > 0) {
+        hasBattery2 = true;
+        batteryPercent2 = rawBattery2;
+      }
     }
 
     let isConnected = false;
