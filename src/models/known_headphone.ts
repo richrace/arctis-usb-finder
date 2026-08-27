@@ -6,6 +6,8 @@ interface KnownHeadphoneProps {
   usage: number;
   interfaceNum: number;
   batteryPercentIdx: number;
+  batteryPercentIdx2?: number;
+  batteryPresentIdx2?: number; // Index indicating if base station battery is present (1=yes, 0=no)
   chargingStatusIdx?: number;
   micStatusIdx?: number;
   gameVolumeIdx?: number;
@@ -20,6 +22,8 @@ export const KnownHeadphoneFactory = ({
   usage,
   interfaceNum,
   batteryPercentIdx,
+  batteryPercentIdx2,
+  batteryPresentIdx2,
   chargingStatusIdx,
   micStatusIdx,
   gameVolumeIdx,
@@ -33,6 +37,8 @@ export const KnownHeadphoneFactory = ({
     usage,
     interfaceNum,
     batteryPercentIdx,
+    batteryPercentIdx2,
+    batteryPresentIdx2,
     chargingStatusIdx,
     micStatusIdx,
     gameVolumeIdx,
@@ -45,6 +51,7 @@ export default class KnownHeadphone {
   static ArctisPro_Wireless_ProductID = 0x1290;
 
   static Arctis_Nova_Pro_Wireless_ProductID = 0x12e0;
+  static Arctis_Nova_Elite_ProductID = 0x2244;
 
   static Arctis7_2017_ProductID = 0x1260;
   static Arctis7_2019_ProductID = 0x12ad;
@@ -77,6 +84,8 @@ export default class KnownHeadphone {
     readonly usage: number,
     readonly interfaceNum: number,
     readonly batteryPercentIdx: number,
+    readonly batteryPercentIdx2?: number,
+    readonly batteryPresentIdx2?: number,
     readonly chargingStatusIdx?: number,
     readonly micStatusIdx?: number,
     readonly gameVolumeIdx?: number,

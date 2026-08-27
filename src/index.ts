@@ -28,22 +28,27 @@ class ArctisUsbFinder {
 
     this.devices = hidDevices
       .map((hidDevice): DeviceToHeadphone => {
+        const matchedHeadphone = HeadphoneList.find((headphone) => {
+          const result = hidDevice.vendorId === headphone.vendorId && hidDevice.productId === headphone.productId;
+          if (!result) return false;
+          if (headphone.usagePage !== 0 && headphone.usage !== 0) {
+            return (
+              hidDevice.usagePage === headphone.usagePage &&
+              hidDevice.usage === headphone.usage &&
+              hidDevice.interface === headphone.interfaceNum
+            );
+          }
+
+          return hidDevice.interface === headphone.interfaceNum;
+        });
+
+        // Clone the headphone object to avoid sharing state between multiple devices
+        const headphone = matchedHeadphone ? { ...matchedHeadphone } : undefined;
+
         return {
           hidDevice,
           report: [],
-          headphone: HeadphoneList.find((headphone) => {
-            const result = hidDevice.vendorId === headphone.vendorId && hidDevice.productId === headphone.productId;
-            if (!result) return false;
-            if (headphone.usagePage !== 0 && headphone.usage !== 0) {
-              return (
-                hidDevice.usagePage === headphone.usagePage &&
-                hidDevice.usage === headphone.usage &&
-                hidDevice.interface === headphone.interfaceNum
-              );
-            }
-
-            return hidDevice.interface === headphone.interfaceNum;
-          }),
+          headphone,
         };
       })
       .filter((hash) => {
