@@ -11,6 +11,7 @@
     "arctis-usb-finder-probe": "dist/bin/probe-arctis.js"
   },
   "scripts": {
+    "prepare": "npm run build",
     "test": "jest --config jestconfig.json --collect-coverage",
     "test-watch": "jest --config jestconfig.json --watch",
     "build": "npx rimraf ./dist && tsc",

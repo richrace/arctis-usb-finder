@@ -1,5 +1,7 @@
 interface SimpleHeadphone {
   batteryPercent: number | undefined;
+  batteryPercent2: number | undefined;
+  hasBattery2: boolean | undefined; // true if base station has a battery present
   modelName: string;
   vendorId: number;
   productId: number;

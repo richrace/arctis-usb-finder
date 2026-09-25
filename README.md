@@ -29,6 +29,7 @@ Finds known Arctis headsets that are currently plugged in via the USB dongle.
 * Arctis Nova 7X V2
 * Arctis Nova 7P
 * Arctis Nova Pro Wireless
+* Arctis Nova Elite
 * Arctis 7P
 
 See [Probe](#probe) for how to get find new devices.

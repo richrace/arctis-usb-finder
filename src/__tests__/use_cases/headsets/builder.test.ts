@@ -4,13 +4,15 @@ import DeviceToHeadphone from '../../../interfaces/device_to_headphone';
 import SimpleHeadphone from '../../../interfaces/simple_headphone';
 import KnownHeadphone from '../../../models/known_headphone';
 import Arctis9MapBatteryBuilder from '../../../use_cases/headsets/arctis9_map_battery_builder';
-import ArctisNovaProBuilder from '../../../use_cases/headsets/arctis_nova_pro_builder';
+import ArctisNovaEliteBuilder from '../../../use_cases/headsets/arctis_nova_elite_builder';
+import ArctisNovaProWirelessBuilder from '../../../use_cases/headsets/arctis_nova_pro_wireless_builder';
 import Builder from '../../../use_cases/headsets/builder';
 import EasyBatteryBuilder from '../../../use_cases/headsets/easy_battery_builder';
 import MapBatteryBuilder from '../../../use_cases/headsets/map_battery_builder';
 import MapBatteryChatmixBuilder from '../../../use_cases/headsets/map_battery_chatmix_builder';
 
-jest.mock('../../../use_cases/headsets/arctis_nova_pro_builder');
+jest.mock('../../../use_cases/headsets/arctis_nova_elite_builder');
+jest.mock('../../../use_cases/headsets/arctis_nova_pro_wireless_builder');
 jest.mock('../../../use_cases/headsets/arctis9_map_battery_builder');
 jest.mock('../../../use_cases/headsets/easy_battery_builder');
 jest.mock('../../../use_cases/headsets/map_battery_builder');
@@ -123,7 +125,7 @@ describe('Builder', () => {
         expect(Arctis9MapBatteryBuilder).toHaveBeenCalled();
       });
 
-      it('creates the ArctisNovaProBuilder with the Arctis_Nova_Pro_Wireless_ProductID', () => {
+      it('creates the ArctisNovaProWirelessBuilder with the Arctis_Nova_Pro_Wireless_ProductID', () => {
         const deviceHash: DeviceToHeadphone = {
           hidDevice: {} as HID.Device,
           report: [0, 1, 1, 0, 1, 0, 4, 0, 8, 9, 10, 11, 12, 13, 14, 8, 16],
@@ -133,7 +135,20 @@ describe('Builder', () => {
         };
         new Builder(deviceHash);
 
-        expect(ArctisNovaProBuilder).toHaveBeenCalled();
+        expect(ArctisNovaProWirelessBuilder).toHaveBeenCalled();
+      });
+
+      it('creates the ArctisNovaEliteBuilder with the Arctis_Nova_Elite_ProductID', () => {
+        const deviceHash: DeviceToHeadphone = {
+          hidDevice: {} as HID.Device,
+          report: [0, 1, 1, 0, 1, 0, 75, 0, 8, 9, 10, 11, 12, 13, 14, 8, 16],
+          headphone: {
+            productId: KnownHeadphone.Arctis_Nova_Elite_ProductID
+          } as KnownHeadphone
+        };
+        new Builder(deviceHash);
+
+        expect(ArctisNovaEliteBuilder).toHaveBeenCalled();
       });
 
       // new test for map_battery_chatmix_builder with ArctisNova7_ProductID
